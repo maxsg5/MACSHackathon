@@ -371,12 +371,13 @@ MonoBehaviour:
     useNormalAngle: 0
     useOutsideNormalAngle: 0
     layerMask:
-      serializedVersion: 2
       m_Bits: 0
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  movementInput: {x: 0, y: 0}
+  rb: {fileID: 0}
 --- !u!50 &1925819123
 Rigidbody2D:
   serializedVersion: 4
