@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 public class MazeGenerator : MonoBehaviour
@@ -10,6 +12,24 @@ public class MazeGenerator : MonoBehaviour
     // [SerializeField]
     // private AstarPath astarPath;
     
+    [SerializeField]
+    private List<RoomConfig> roomConfigs;
+
+    [SerializeField]
+    private int roomSize = 10;  // Size of each room in tiles
+    
+    [SerializeField]
+    private Tilemap tilemap;
+
+    [SerializeField]
+    private TileBase wallTile;
+
+    [SerializeField] 
+    private TileBase floorTile;
+    
+    [SerializeField]
+    private float delay = 0.1f;
+   
     [SerializeField]
     private MazeCell mazeCellPrefab;
     
@@ -24,19 +44,10 @@ public class MazeGenerator : MonoBehaviour
     void Start()
     {
         Random.InitState(seed);
-        
-        mazeGrid = new MazeCell[mazeWidth*10, mazeHeight*10];
 
-        for (int x = 0; x < mazeWidth*10; x+=10)
-        {
-            for (int y = 0; y < mazeHeight*10; y+=10)
-            {
-                MazeCell newCell = Instantiate(mazeCellPrefab, new Vector3(x, y, 0), Quaternion.identity);
-                mazeGrid[x, y] = newCell;
-            }
-        }
-        
-        GenerateMaze(null, mazeGrid[0, 0]);
+        InitializeMaze();
+        //StartCoroutine(GenerateMaze(new Vector3Int(0, 0, 0)));
+        //GenerateMaze(new Vector3Int(0, 0, 0));
     }
 
     private void Update()
@@ -46,126 +57,84 @@ public class MazeGenerator : MonoBehaviour
             ResetMaze();
         }
     }
-
-    private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
+    
+    private void InitializeMaze()
     {
-        currentCell.Visit();
-        ClearWalls(previousCell, currentCell);
-
-        MazeCell nextCell;
-
-        do
+        for (int x = 0; x < mazeWidth * roomSize; x += roomSize)
         {
-            nextCell = GetNextUnvisitedCell(currentCell);
-        
-            if (nextCell != null)
+            for (int y = 0; y < mazeHeight * roomSize; y += roomSize)
             {
-                GenerateMaze(currentCell, nextCell);
+                RoomConfig roomConfig = roomConfigs[Random.Range(0, roomConfigs.Count)];
+                CreateRoom(new Vector3Int(x, y, 0), roomConfig);
             }
-        } while (nextCell != null);
-        
-        var firstCell = mazeGrid[0, 0];
-        //var lastCell = mazeGrid[mazeWidth*10 - 10, mazeHeight*10 - 10];
-        firstCell.ClearLeftWall();
-        //lastCell.ClearTopWall();
-        
-        // astarPath.Scan();
+        }
     }
+    
+    private void CreateRoom(Vector3Int origin, RoomConfig config)
+    {
+        for (int x = 0; x < roomSize; x++)
+        {
+            for (int y = 0; y < roomSize; y++)
+            {
+                Vector3Int position = origin + new Vector3Int(x, y, 0);
+                if (x == 0) tilemap.SetTile(position, config.westWallTile);
+                else if (x == roomSize - 1) tilemap.SetTile(position, config.eastWallTile);
+                else if (y == 0) tilemap.SetTile(position, config.southWallTile);
+                else if (y == roomSize - 1) tilemap.SetTile(position, config.northWallTile);
+                else tilemap.SetTile(position, config.floorTile);
+            }
+        }
+    }
+
+    private IEnumerator GenerateMaze(Vector3Int currentPos)
+    {
+        ClearTile(currentPos);
+        List<Vector3Int> unvisitedNeighbors = GetUnvisitedNeighbors(currentPos);
+
+        while (unvisitedNeighbors.Count > 0)
+        {
+            Vector3Int nextPos = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
+            ClearTile(nextPos);
+            ClearWallBetween(currentPos, nextPos);
+            yield return new WaitForSeconds(delay);
+            yield return StartCoroutine(GenerateMaze(nextPos));
+            unvisitedNeighbors = GetUnvisitedNeighbors(currentPos);
+        }
+    }
+
     
     private void ResetMaze()
     {
-        foreach (var cell in mazeGrid)
-        {
-            cell.Unvisit();
-            cell.AddAllWalls();
-        }
-        GenerateMaze(null, mazeGrid[0, 0]);
+        tilemap.ClearAllTiles();
+        InitializeMaze();
+        GenerateMaze(new Vector3Int(0, 0, 0));
     }
 
-    private MazeCell GetNextUnvisitedCell(MazeCell currentCell)
+    private void ClearTile(Vector3Int position)
     {
-        var unvisitedCells = GetUnvisitedCells(currentCell);
-
-        return unvisitedCells.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
-
+        tilemap.SetTile(position, floorTile);
     }
-
-    private IEnumerable<MazeCell> GetUnvisitedCells(MazeCell currentCell)
+    
+    private List<Vector3Int> GetUnvisitedNeighbors(Vector3Int position)
     {
-        int x = (int)currentCell.transform.position.x;
-        int y = (int)currentCell.transform.position.y;
+        List<Vector3Int> neighbors = new List<Vector3Int>();
+        Vector3Int[] directions = { Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right };
 
-        if (x + 10 < mazeWidth * 10)
+        foreach (Vector3Int dir in directions)
         {
-            var cellToRight = mazeGrid[x + 10, y];
-            if (!cellToRight.isVisited)
+            Vector3Int neighborPos = position + dir;
+            if (tilemap.HasTile(neighborPos) && tilemap.GetTile(neighborPos) == wallTile)
             {
-                yield return cellToRight;
+                neighbors.Add(neighborPos);
             }
         }
-        
-        if (x - 10 >= 0)
-        {
-            var cellToLeft = mazeGrid[x - 10, y];
-            if (!cellToLeft.isVisited)
-            {
-                yield return cellToLeft;
-            }
-        }
-        
-        if (y + 10 < mazeHeight * 10)
-        {
-            var cellToTop = mazeGrid[x, y + 10];
-            if (!cellToTop.isVisited)
-            {
-                yield return cellToTop;
-            }
-        }
-        
-        if (y - 10 >= 0)
-        {
-            var cellToBottom = mazeGrid[x, y - 10];
-            if (!cellToBottom.isVisited)
-            {
-                yield return cellToBottom;
-            }
-        }
-        
+
+        return neighbors;
     }
-
-    private void ClearWalls(MazeCell previousCell, MazeCell currentCell)
+    
+    private void ClearWallBetween(Vector3Int pos1, Vector3Int pos2)
     {
-        if (previousCell == null)
-        {
-            return;
-        }
-
-        if (previousCell.transform.position.x < currentCell.transform.position.x)
-        {
-            previousCell.ClearRightWall();
-            currentCell.ClearLeftWall();
-            return;
-        }
-        
-        if(previousCell.transform.position.x > currentCell.transform.position.x)
-        {
-            previousCell.ClearLeftWall();
-            currentCell.ClearRightWall();
-            return;
-        }
-        
-        if(previousCell.transform.position.y < currentCell.transform.position.y)
-        {
-            previousCell.ClearTopWall();
-            currentCell.ClearBottomWall();
-            return;
-        }
-        
-        if(previousCell.transform.position.y > currentCell.transform.position.y)
-        {
-            previousCell.ClearBottomWall();
-            currentCell.ClearTopWall();
-            return;
-        }
+        Vector3Int wallPos = (pos1 + pos2) / 2;
+        ClearTile(wallPos);
     }
 }
