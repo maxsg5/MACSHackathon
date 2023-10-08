@@ -22,6 +22,9 @@ public class MazeGenerator : MonoBehaviour
     private Tilemap tilemap;
     
     [SerializeField]
+    private TileBase visitedFloorTile;
+    
+    [SerializeField]
     private float delay = 0.1f;
    
     [SerializeField]
@@ -75,7 +78,7 @@ public class MazeGenerator : MonoBehaviour
         currentRoom.MarkAsVisited();
         
         //change the room's test object to the visited version
-        Instantiate(VisitedRoomTestObject, currentRoom.GetCenterCoords(), Quaternion.identity);
+        currentRoom.ChangeFloorTile(visitedFloorTile);
         
         List<Room> unvisitedNeighbors = GetUnvisitedNeighbors(currentRoom);
 

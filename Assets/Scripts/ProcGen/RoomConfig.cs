@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 public class RoomConfig : ScriptableObject
 {
     public TileBase floorTile;
+    public TileBase visitedFloorTile;
     public TileBase northWallTile;
     public TileBase southWallTile;
     public TileBase eastWallTile;

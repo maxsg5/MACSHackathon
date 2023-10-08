@@ -99,7 +99,7 @@ public class Room
             for (int x = wallStart.x; x <= wallEnd.x; x++)
             {
                 Vector3Int position = new Vector3Int(x, wallStart.y, 0);
-                Tilemap.SetTile(position, RoomConfig.floorTile);
+                Tilemap.SetTile(position, RoomConfig.visitedFloorTile);
             }
         }
         else
@@ -108,7 +108,7 @@ public class Room
             for (int y = wallStart.y; y <= wallEnd.y; y++)
             {
                 Vector3Int position = new Vector3Int(wallStart.x, y, 0);
-                Tilemap.SetTile(position, RoomConfig.floorTile);
+                Tilemap.SetTile(position, RoomConfig.visitedFloorTile);
             }
         }
     }
@@ -127,5 +127,17 @@ public class Room
     public void MarkAsVisited()
     {
         Visited = true;
+    }
+    
+    public void ChangeFloorTile(TileBase newTile)
+    {
+        for (int x = 1; x < RoomSize - 1; x++)
+        {
+            for (int y = 1; y < RoomSize - 1; y++)
+            {
+                Vector3Int position = Origin + new Vector3Int(x, y, 0);
+                Tilemap.SetTile(position, newTile);
+            }
+        }
     }
 }

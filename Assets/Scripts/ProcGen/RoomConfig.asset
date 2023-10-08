@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RoomConfig
   m_EditorClassIdentifier: 
   floorTile: {fileID: 11400000, guid: bb8f924bd05784a4288fdab2d6505a35, type: 2}
+  visitedFloorTile: {fileID: 11400000, guid: df4e07e4067fd744a9df65cdd8983ec8, type: 2}
   northWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
   southWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
   eastWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
