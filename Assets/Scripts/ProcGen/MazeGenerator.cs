@@ -20,18 +20,12 @@ public class MazeGenerator : MonoBehaviour
     
     [SerializeField]
     private Tilemap tilemap;
-
-    [SerializeField]
-    private TileBase wallTile;
-
-    [SerializeField] 
-    private TileBase floorTile;
     
     [SerializeField]
     private float delay = 0.1f;
    
     [SerializeField]
-    private MazeCell mazeCellPrefab;
+    private GameObject VisitedRoomTestObject;
     
     [SerializeField]
     private int mazeWidth, mazeHeight;
@@ -40,101 +34,117 @@ public class MazeGenerator : MonoBehaviour
 
     [SerializeField] 
     private int seed;
+    
+    private Room[,] rooms;
 
     void Start()
     {
         Random.InitState(seed);
 
         InitializeMaze();
-        //StartCoroutine(GenerateMaze(new Vector3Int(0, 0, 0)));
-        //GenerateMaze(new Vector3Int(0, 0, 0));
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ResetMaze();
-        }
+        
+        StartCoroutine(GenerateMaze(rooms[0, 0]));
     }
     
     private void InitializeMaze()
     {
-        for (int x = 0; x < mazeWidth * roomSize; x += roomSize)
+        // Initialize the rooms array
+        rooms = new Room[mazeWidth, mazeHeight];
+        
+        for (int x = 0; x < mazeWidth; x++)
         {
-            for (int y = 0; y < mazeHeight * roomSize; y += roomSize)
+            for (int y = 0; y < mazeHeight; y++)
             {
+                Vector3Int roomOrigin = new Vector3Int(x * roomSize, y * roomSize, 0);
                 RoomConfig roomConfig = roomConfigs[Random.Range(0, roomConfigs.Count)];
-                CreateRoom(new Vector3Int(x, y, 0), roomConfig);
-            }
-        }
-    }
-    
-    private void CreateRoom(Vector3Int origin, RoomConfig config)
-    {
-        for (int x = 0; x < roomSize; x++)
-        {
-            for (int y = 0; y < roomSize; y++)
-            {
-                Vector3Int position = origin + new Vector3Int(x, y, 0);
-                if (x == 0) tilemap.SetTile(position, config.westWallTile);
-                else if (x == roomSize - 1) tilemap.SetTile(position, config.eastWallTile);
-                else if (y == 0) tilemap.SetTile(position, config.southWallTile);
-                else if (y == roomSize - 1) tilemap.SetTile(position, config.northWallTile);
-                else tilemap.SetTile(position, config.floorTile);
+                
+                // Create a new Room object
+                Room newRoom = new Room(roomOrigin, roomSize, tilemap, roomConfig);
+            
+                // Generate the room
+                newRoom.GenerateRoom();
+            
+                // Store the room in the rooms array
+                rooms[x, y] = newRoom;
             }
         }
     }
 
-    private IEnumerator GenerateMaze(Vector3Int currentPos)
+    private IEnumerator GenerateMaze(Room currentRoom)
     {
-        ClearTile(currentPos);
-        List<Vector3Int> unvisitedNeighbors = GetUnvisitedNeighbors(currentPos);
+        currentRoom.MarkAsVisited();
+        
+        //change the room's test object to the visited version
+        Instantiate(VisitedRoomTestObject, currentRoom.GetCenterCoords(), Quaternion.identity);
+        
+        List<Room> unvisitedNeighbors = GetUnvisitedNeighbors(currentRoom);
 
         while (unvisitedNeighbors.Count > 0)
         {
-            Vector3Int nextPos = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
-            ClearTile(nextPos);
-            ClearWallBetween(currentPos, nextPos);
+            Room nextRoom = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
+            ClearWallBetween(currentRoom, nextRoom);
             yield return new WaitForSeconds(delay);
-            yield return StartCoroutine(GenerateMaze(nextPos));
-            unvisitedNeighbors = GetUnvisitedNeighbors(currentPos);
+            yield return StartCoroutine(GenerateMaze(nextRoom));
+            unvisitedNeighbors = GetUnvisitedNeighbors(currentRoom);
         }
     }
-
     
-    private void ResetMaze()
+    private List<Room> GetUnvisitedNeighbors(Room currentRoom)
     {
-        tilemap.ClearAllTiles();
-        InitializeMaze();
-        GenerateMaze(new Vector3Int(0, 0, 0));
-    }
-
-    private void ClearTile(Vector3Int position)
-    {
-        tilemap.SetTile(position, floorTile);
-    }
+        List<Room> neighbors = new List<Room>();
+        Vector3Int currentOrigin = currentRoom.Origin;
     
-    private List<Vector3Int> GetUnvisitedNeighbors(Vector3Int position)
-    {
-        List<Vector3Int> neighbors = new List<Vector3Int>();
-        Vector3Int[] directions = { Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right };
+        int currentX = currentOrigin.x / roomSize;
+        int currentY = currentOrigin.y / roomSize;
 
-        foreach (Vector3Int dir in directions)
+        // Check if the indices are within bounds before attempting to access the array
+        if (currentX + 1 < mazeWidth)  // East neighbor
         {
-            Vector3Int neighborPos = position + dir;
-            if (tilemap.HasTile(neighborPos) && tilemap.GetTile(neighborPos) == wallTile)
-            {
-                neighbors.Add(neighborPos);
-            }
+            Room neighbor = rooms[currentX + 1, currentY];
+            if (!neighbor.Visited)
+                neighbors.Add(neighbor);
+        }
+
+        if (currentX - 1 >= 0)  // West neighbor
+        {
+            Room neighbor = rooms[currentX - 1, currentY];
+            if (!neighbor.Visited)
+                neighbors.Add(neighbor);
+        }
+
+        if (currentY + 1 < mazeHeight)  // North neighbor
+        {
+            Room neighbor = rooms[currentX, currentY + 1];
+            if (!neighbor.Visited)
+                neighbors.Add(neighbor);
+        }
+
+        if (currentY - 1 >= 0)  // South neighbor
+        {
+            Room neighbor = rooms[currentX, currentY - 1];
+            if (!neighbor.Visited)
+                neighbors.Add(neighbor);
         }
 
         return neighbors;
     }
     
-    private void ClearWallBetween(Vector3Int pos1, Vector3Int pos2)
+    private Direction OppositeDirection(Direction direction)
     {
-        Vector3Int wallPos = (pos1 + pos2) / 2;
-        ClearTile(wallPos);
+        switch (direction)
+        {
+            case Direction.North: return Direction.South;
+            case Direction.South: return Direction.North;
+            case Direction.East: return Direction.West;
+            case Direction.West: return Direction.East;
+            default: throw new ArgumentException("Invalid direction: " + direction);
+        }
+    }
+    
+    private void ClearWallBetween(Room room1, Room room2)
+    {
+        Direction direction = room1.GetDirectionOf(room2);
+        room1.TearDownWall(direction);
+        room2.TearDownWall(OppositeDirection(direction));
     }
 }
