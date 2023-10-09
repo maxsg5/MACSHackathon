@@ -157,7 +157,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.21
+  m_Intensity: 0.05
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -234,8 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf1a2f02aa3182949bc3601116cb7384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeZoneTilemap: {fileID: 1271896461}
-  safeZoneTile: {fileID: 0}
+  safeZonePrefab: {fileID: 4540285798900684726, guid: b1f5e4c103d424769a70bb74c3ee0159,
+    type: 3}
   roomConfigs:
   - {fileID: 11400000, guid: cec565ad82693a344b72bf87def70b7e, type: 2}
   - {fileID: 11400000, guid: 70bf8d8496ff08843bfacc42f5eab49b, type: 2}
@@ -243,10 +243,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab216291edaa66147860421893b43ad4, type: 2}
   roomSize: 10
   tilemap: {fileID: 2138830651}
-  visitedFloorTile: {fileID: 11400000, guid: d6cafa36044f8ed46a8a3d5029dc6a2b, type: 2}
   delay: 0.01
-  VisitedRoomTestObject: {fileID: 5923960180438713825, guid: c27773e2cd708ab4bba2b3e8f802d7bb,
-    type: 3}
   mazeWidth: 5
   mazeHeight: 5
   seed: 50
@@ -437,7 +434,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1397269881
+--- !u!1 &1466260210
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -445,27 +442,27 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1397269884}
-  - component: {fileID: 1397269883}
-  - component: {fileID: 1397269882}
+  - component: {fileID: 1466260213}
+  - component: {fileID: 1466260212}
+  - component: {fileID: 1466260211}
   m_Layer: 0
-  m_Name: portal_spritesheet_0
+  m_Name: character_20x20_green_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &1397269882
+--- !u!95 &1466260211
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397269881}
+  m_GameObject: {fileID: 1466260210}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 54a0e01dd94e54fbda434ef94e766392, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2c5c201448ee0419b8103f03e87d5fe9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -476,13 +473,13 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!212 &1397269883
+--- !u!212 &1466260212
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397269881}
+  m_GameObject: {fileID: 1466260210}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -517,7 +514,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -142242330, guid: 4d07318687140f946b719dd9564d4a2e, type: 3}
+  m_Sprite: {fileID: 507274930, guid: 0bc86d66591bf5a43998e231bea1221c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -528,16 +525,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1397269884
+--- !u!4 &1466260213
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397269881}
+  m_GameObject: {fileID: 1466260210}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.56, y: -3.113234, z: 0}
+  m_LocalPosition: {x: -4.83, y: -2.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5700,4 +5697,4 @@ SceneRoots:
   - {fileID: 707574300}
   - {fileID: 1726017965}
   - {fileID: 445367475}
-  - {fileID: 1397269884}
+  - {fileID: 1466260213}
