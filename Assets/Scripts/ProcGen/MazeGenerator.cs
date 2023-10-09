@@ -11,12 +11,9 @@ public class MazeGenerator : MonoBehaviour
 
     // [SerializeField]
     // private AstarPath astarPath;
-
+    
     [SerializeField]
-    private Tilemap safeZoneTilemap;  // Assign your new SafeZoneLayer Tilemap in the inspector
-
-    [SerializeField]
-    private TileBase safeZoneTile;  // Assign your safe zone tile in the inspector
+    private GameObject safeZonePrefab;  // Assign your safe zone tile in the inspector
     
     [SerializeField]
     private List<RoomConfig> roomConfigs;
@@ -28,13 +25,7 @@ public class MazeGenerator : MonoBehaviour
     private Tilemap tilemap;
     
     [SerializeField]
-    private TileBase visitedFloorTile;
-    
-    [SerializeField]
     private float delay = 0.1f;
-   
-    [SerializeField]
-    private GameObject VisitedRoomTestObject;
     
     [SerializeField]
     private int mazeWidth, mazeHeight;
@@ -45,6 +36,8 @@ public class MazeGenerator : MonoBehaviour
     private int seed;
     
     private Room[,] rooms;
+    
+    private int roomCounter = 0; //used for CreateSafeZone()
 
     void Start()
     {
@@ -55,6 +48,7 @@ public class MazeGenerator : MonoBehaviour
         rooms[0, 0].TearDownWall(Direction.West);
         rooms[0, 0].TearDownWall(Direction.South);
         StartCoroutine(GenerateMaze(rooms[0, 0]));
+        CreateSafeZones();
     }
     
     private void InitializeMaze()
@@ -160,22 +154,19 @@ public class MazeGenerator : MonoBehaviour
         room2.TearDownWall(OppositeDirection(direction));
     }
     
-    void CreateSafeZones(int numberOfSafeZones)
+    private void CreateSafeZones()
     {
-        int createdSafeZones = 0;
-        while (createdSafeZones < numberOfSafeZones)
+        
+        for (int x = 0; x < mazeWidth; x++)
         {
-            Vector3Int randomPosition = new Vector3Int(
-                Random.Range(0, mazeWidth * roomSize),
-                Random.Range(0, mazeHeight * roomSize),
-                0
-            );
-
-            // Check if the tile at the random position is a floor tile on the floorTilemap
-            if (tilemap.GetTile(randomPosition) != null)
+            for (int y = 0; y < mazeHeight; y++)
             {
-                safeZoneTilemap.SetTile(randomPosition, safeZoneTile);  // Set the safe zone tile on the safeZoneTilemap
-                createdSafeZones++;
+                roomCounter++;
+                if (roomCounter % 3 == 0)
+                {
+                    Room room = rooms[x, y];
+                    GameObject safeZone = room.PrepareSafeZone(safeZonePrefab);
+                }
             }
         }
     }
