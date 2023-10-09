@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e48371f21e4c3dbc35bb0a0cd5d5b0, type: 3}
+  m_Name: RoomConfig2
+  m_EditorClassIdentifier: 
+  floorTile: {fileID: 11400000, guid: d6cafa36044f8ed46a8a3d5029dc6a2b, type: 2}
+  visitedFloorTile: {fileID: 11400000, guid: d6cafa36044f8ed46a8a3d5029dc6a2b, type: 2}
+  northWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
+  southWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
+  eastWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
+  westWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}

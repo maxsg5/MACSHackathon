@@ -11,6 +11,12 @@ public class MazeGenerator : MonoBehaviour
 
     // [SerializeField]
     // private AstarPath astarPath;
+
+    [SerializeField]
+    private Tilemap safeZoneTilemap;  // Assign your new SafeZoneLayer Tilemap in the inspector
+
+    [SerializeField]
+    private TileBase safeZoneTile;  // Assign your safe zone tile in the inspector
     
     [SerializeField]
     private List<RoomConfig> roomConfigs;
@@ -46,6 +52,8 @@ public class MazeGenerator : MonoBehaviour
 
         InitializeMaze();
         
+        rooms[0, 0].TearDownWall(Direction.West);
+        rooms[0, 0].TearDownWall(Direction.South);
         StartCoroutine(GenerateMaze(rooms[0, 0]));
     }
     
@@ -75,10 +83,11 @@ public class MazeGenerator : MonoBehaviour
 
     private IEnumerator GenerateMaze(Room currentRoom)
     {
+        
         currentRoom.MarkAsVisited();
         
         //change the room's test object to the visited version
-        currentRoom.ChangeFloorTile(visitedFloorTile);
+        currentRoom.ChangeFloorTile(currentRoom.RoomConfig.floorTile);
         
         List<Room> unvisitedNeighbors = GetUnvisitedNeighbors(currentRoom);
 
@@ -149,5 +158,25 @@ public class MazeGenerator : MonoBehaviour
         Direction direction = room1.GetDirectionOf(room2);
         room1.TearDownWall(direction);
         room2.TearDownWall(OppositeDirection(direction));
+    }
+    
+    void CreateSafeZones(int numberOfSafeZones)
+    {
+        int createdSafeZones = 0;
+        while (createdSafeZones < numberOfSafeZones)
+        {
+            Vector3Int randomPosition = new Vector3Int(
+                Random.Range(0, mazeWidth * roomSize),
+                Random.Range(0, mazeHeight * roomSize),
+                0
+            );
+
+            // Check if the tile at the random position is a floor tile on the floorTilemap
+            if (tilemap.GetTile(randomPosition) != null)
+            {
+                safeZoneTilemap.SetTile(randomPosition, safeZoneTile);  // Set the safe zone tile on the safeZoneTilemap
+                createdSafeZones++;
+            }
+        }
     }
 }

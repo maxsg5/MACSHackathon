@@ -99,7 +99,7 @@ public class Room
             for (int x = wallStart.x; x <= wallEnd.x; x++)
             {
                 Vector3Int position = new Vector3Int(x, wallStart.y, 0);
-                Tilemap.SetTile(position, RoomConfig.visitedFloorTile);
+                Tilemap.SetTile(position, RoomConfig.floorTile);
             }
         }
         else
@@ -108,7 +108,7 @@ public class Room
             for (int y = wallStart.y; y <= wallEnd.y; y++)
             {
                 Vector3Int position = new Vector3Int(wallStart.x, y, 0);
-                Tilemap.SetTile(position, RoomConfig.visitedFloorTile);
+                Tilemap.SetTile(position, RoomConfig.floorTile);
             }
         }
     }
