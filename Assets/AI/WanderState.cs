@@ -23,7 +23,7 @@ public class WanderState : AIState
         float distanceToWaypoint = Vector3.Distance(controller.transform.position, waypoints[currentWaypoint].position);
 
         // Move towards the waypoint
-        controller.transform.position += direction * speed * Time.deltaTime;
+        controller.transform.position += direction * (speed * Time.deltaTime);
 
         // Check if AI is close to the current waypoint
         if(distanceToWaypoint <= reachDistance)
