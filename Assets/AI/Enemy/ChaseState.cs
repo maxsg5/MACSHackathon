@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChaseState : AIState
 {
     public float closeEnoughDistance = 0.5f;
+    public float speed = 5.0f;
     //public float playerDetectionDistance = 5.0f;
     //public MazeGenerator mazeGenerator;  // Reference to your MazeGenerator script
 
@@ -15,11 +16,11 @@ public class ChaseState : AIState
     {
         controller.playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         _aiDestinationSetter = controller.GetComponent<AIDestinationSetter>();
-        _playerTransform = controller.playerTransform /* get the player's transform somehow */;
+        _playerTransform = controller.playerTransform;
         //set the target to the player
         _aiDestinationSetter.target = _playerTransform;
         //increase the speed of the AI
-        controller.GetComponent<AIPath>().maxSpeed = 5;
+        controller.GetComponent<AIPath>().maxSpeed = speed;
     }
 
     public override void UpdateState(AIController controller)

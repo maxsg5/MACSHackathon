@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
-    public AstarPath Path { get; }
+    public AstarPath Path;
     public AIState currentState;
     public Transform playerTransform;
 
