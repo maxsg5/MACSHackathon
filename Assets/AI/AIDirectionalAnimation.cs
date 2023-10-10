@@ -33,7 +33,8 @@ public class AIDirectionalAnimation : MonoBehaviour
             horizontal = 0;
         }
 
-        animator.SetFloat("Horizontal", horizontal);
-        animator.SetFloat("Vertical", vertical);
+        animator.SetFloat("Look X", horizontal);
+        animator.SetFloat("Look Y", vertical);
+        animator.SetFloat("Speed", direction.magnitude);
     }
 }

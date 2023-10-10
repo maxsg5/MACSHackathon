@@ -77,6 +77,13 @@ public class Room
         return safeZone;
     }
     
+    public GameObject SpawnObjectInMaze(GameObject prefab)
+    {
+        Vector3 safeZonePosition = GetCenterCoords() + new Vector3(0.5f, 0.5f, 0);
+        GameObject safeZone = GameObject.Instantiate(prefab, safeZonePosition, Quaternion.identity);
+        return safeZone;
+    }
+    
     public Vector3Int GetCenterCoords()
     {
         return new Vector3Int(Origin.x + RoomSize / 2, Origin.y + RoomSize / 2, 0);
@@ -174,4 +181,6 @@ public class Room
             }
         }
     }
+    
+    
 }

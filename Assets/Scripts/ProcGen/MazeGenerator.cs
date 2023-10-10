@@ -16,6 +16,9 @@ public class MazeGenerator : MonoBehaviour
     private GameObject safeZonePrefab;  // Assign your safe zone tile in the inspector
     
     [SerializeField]
+    private GameObject enemyPrefab;  // Assign your enemy prefab in the inspector
+    
+    [SerializeField]
     private List<RoomConfig> roomConfigs;
 
     [SerializeField]
@@ -41,6 +44,7 @@ public class MazeGenerator : MonoBehaviour
     private Room[,] rooms;
     
     private int roomCounter = 0; //used for CreateSafeZone()
+    private int enemyCounter = 0; //used for SpawnEnemies()
 
     void Start()
     {
@@ -52,16 +56,32 @@ public class MazeGenerator : MonoBehaviour
         rooms[0, 0].TearDownWall(Direction.South);
         //StartCoroutine(GenerateMaze(rooms[0, 0]));
         GenerateMaze(rooms[0, 0]);
-        CreateSafeZones();
+        //CreateSafeZones();
         //wait a bit then scan the astar grid
         StartCoroutine(ScanAstarGrid());
-        //todo: spawn enemies
+        
+        //SpawnEnemies();
     }
 
+    
+    public Room GetRandomRoom()
+    {
+        int randomX = Random.Range(0, mazeWidth);
+        int randomY = Random.Range(0, mazeHeight);
+        return rooms[randomX, randomY];
+    }
+    
     private IEnumerator ScanAstarGrid()
     {
         yield return new WaitForSeconds(0.5f);
         astarPath.Scan();
+        StartCoroutine(Initialize());
+    }
+    
+    private IEnumerator Initialize()
+    {
+        yield return new WaitForSeconds(3.0f);
+        SpawnEnemyInLastRoom();
     }
 
     private void InitializeMaze()
@@ -185,4 +205,29 @@ public class MazeGenerator : MonoBehaviour
             }
         }
     }
+    
+    private void SpawnEnemies()
+    {
+        
+        for (int x = 0; x < mazeWidth; x++)
+        {
+            for (int y = 0; y < mazeHeight; y++)
+            {
+                enemyCounter++;
+                if (enemyCounter % 4 == 0)
+                {
+                    Room room = rooms[x, y];
+                    GameObject enemy = room.SpawnObjectInMaze(enemyPrefab);
+                }
+            }
+        }
+    }
+    
+    //spawn enemy in last room
+    public void SpawnEnemyInLastRoom()
+    {
+        Room lastRoom = rooms[mazeWidth - 1, mazeHeight - 1];
+        GameObject enemy = lastRoom.SpawnObjectInMaze(enemyPrefab);
+    }
+    
 }
