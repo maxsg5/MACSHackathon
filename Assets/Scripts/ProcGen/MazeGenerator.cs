@@ -9,8 +9,8 @@ using Random = UnityEngine.Random;
 public class MazeGenerator : MonoBehaviour
 {
 
-    // [SerializeField]
-    // private AstarPath astarPath;
+    [SerializeField]
+    private AstarPath astarPath;
     
     [SerializeField]
     private GameObject safeZonePrefab;  // Assign your safe zone tile in the inspector
@@ -23,6 +23,9 @@ public class MazeGenerator : MonoBehaviour
     
     [SerializeField]
     private Tilemap tilemap;
+    
+    [SerializeField]
+    private Tilemap obstacleTilemap;
     
     [SerializeField]
     private float delay = 0.1f;
@@ -47,10 +50,20 @@ public class MazeGenerator : MonoBehaviour
         
         rooms[0, 0].TearDownWall(Direction.West);
         rooms[0, 0].TearDownWall(Direction.South);
-        StartCoroutine(GenerateMaze(rooms[0, 0]));
+        //StartCoroutine(GenerateMaze(rooms[0, 0]));
+        GenerateMaze(rooms[0, 0]);
         CreateSafeZones();
+        //wait a bit then scan the astar grid
+        StartCoroutine(ScanAstarGrid());
+        //todo: spawn enemies
     }
-    
+
+    private IEnumerator ScanAstarGrid()
+    {
+        yield return new WaitForSeconds(0.5f);
+        astarPath.Scan();
+    }
+
     private void InitializeMaze()
     {
         // Initialize the rooms array
@@ -64,7 +77,7 @@ public class MazeGenerator : MonoBehaviour
                 RoomConfig roomConfig = roomConfigs[Random.Range(0, roomConfigs.Count)];
                 
                 // Create a new Room object
-                Room newRoom = new Room(roomOrigin, roomSize, tilemap, roomConfig);
+                Room newRoom = new Room(roomOrigin, roomSize, tilemap, obstacleTilemap, roomConfig);
             
                 // Generate the room
                 newRoom.GenerateRoom();
@@ -75,7 +88,7 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    private IEnumerator GenerateMaze(Room currentRoom)
+    private void GenerateMaze(Room currentRoom)
     {
         
         currentRoom.MarkAsVisited();
@@ -89,8 +102,10 @@ public class MazeGenerator : MonoBehaviour
         {
             Room nextRoom = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
             ClearWallBetween(currentRoom, nextRoom);
-            yield return new WaitForSeconds(delay);
-            yield return StartCoroutine(GenerateMaze(nextRoom));
+            //uncomment below and change return type to IEnumerator to see the maze being generated as a coroutine.
+            //yield return new WaitForSeconds(delay);
+            //yield return StartCoroutine(GenerateMaze(nextRoom));
+            GenerateMaze(nextRoom);
             unvisitedNeighbors = GetUnvisitedNeighbors(currentRoom);
         }
     }
