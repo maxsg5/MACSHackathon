@@ -125,9 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d522dcb9ab63fa418354c64acda2a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Path: {fileID: 0}
   currentState: {fileID: 0}
   playerTransform: {fileID: 0}
-  playerDetectionDistance: 5
+  playerDetectionDistance: 2.5
 --- !u!114 &846106214877675711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8afca70120d55d43bb621dc1b2bb58a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
   closeEnoughDistance: 0.5
 --- !u!114 &524587758694884028
 MonoBehaviour:
@@ -273,3 +275,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeEnoughDistance: 0.5
+  speed: 5

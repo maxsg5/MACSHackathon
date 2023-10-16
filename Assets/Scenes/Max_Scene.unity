@@ -409,6 +409,7 @@ MonoBehaviour:
     type: 3}
   enemyPrefab: {fileID: 5703255524276774527, guid: 808c5e9d84635d74ab1c0751e1f1c6eb,
     type: 3}
+  enemySpawnRate: 4
   roomConfigs:
   - {fileID: 11400000, guid: cec565ad82693a344b72bf87def70b7e, type: 2}
   - {fileID: 11400000, guid: 70bf8d8496ff08843bfacc42f5eab49b, type: 2}
@@ -1259,7 +1260,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 1
-  m_PointLightOuterRadius: 4.05
+  m_PointLightOuterRadius: 5.87
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

@@ -19,6 +19,9 @@ public class MazeGenerator : MonoBehaviour
     private GameObject enemyPrefab;  // Assign your enemy prefab in the inspector
     
     [SerializeField]
+    private int enemySpawnRate = 4;  // Assign your enemy spawn rate in the inspector
+    
+    [SerializeField]
     private List<RoomConfig> roomConfigs;
 
     [SerializeField]
@@ -60,7 +63,7 @@ public class MazeGenerator : MonoBehaviour
         //wait a bit then scan the astar grid
         StartCoroutine(ScanAstarGrid());
         
-        //SpawnEnemies();
+        
     }
 
     
@@ -81,7 +84,8 @@ public class MazeGenerator : MonoBehaviour
     private IEnumerator Initialize()
     {
         yield return new WaitForSeconds(3.0f);
-        SpawnEnemyInLastRoom();
+        //SpawnEnemyInLastRoom();
+        SpawnEnemies(enemySpawnRate);
     }
 
     private void InitializeMaze()
@@ -206,7 +210,7 @@ public class MazeGenerator : MonoBehaviour
         }
     }
     
-    private void SpawnEnemies()
+    private void SpawnEnemies(int nthRoom)
     {
         
         for (int x = 0; x < mazeWidth; x++)
@@ -214,10 +218,11 @@ public class MazeGenerator : MonoBehaviour
             for (int y = 0; y < mazeHeight; y++)
             {
                 enemyCounter++;
-                if (enemyCounter % 4 == 0)
+                if (enemyCounter % nthRoom == 0)
                 {
                     Room room = rooms[x, y];
                     GameObject enemy = room.SpawnObjectInMaze(enemyPrefab);
+                    enemy.GetComponent<EnemyAIController>().Path = astarPath;
                 }
             }
         }
@@ -228,6 +233,7 @@ public class MazeGenerator : MonoBehaviour
     {
         Room lastRoom = rooms[mazeWidth - 1, mazeHeight - 1];
         GameObject enemy = lastRoom.SpawnObjectInMaze(enemyPrefab);
+        enemy.GetComponent<EnemyAIController>().Path = astarPath;
     }
     
 }
