@@ -11,16 +11,15 @@ GameObject:
   - component: {fileID: 7130211107347359794}
   - component: {fileID: 9072470367596174502}
   - component: {fileID: 5266873128628283996}
-  - component: {fileID: 6253451780006832593}
+  - component: {fileID: 4454708418693426983}
+  - component: {fileID: 4977459491390800442}
   - component: {fileID: 846106214877675711}
   - component: {fileID: 1088033644620321030}
   - component: {fileID: 3410901095302747156}
   - component: {fileID: 3538093873471077925}
-  - component: {fileID: 6830957501044564510}
-  - component: {fileID: 524587758694884028}
   - component: {fileID: 7721255932204123171}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: NPC
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +102,7 @@ Animator:
   m_GameObject: {fileID: 5703255524276774527}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 28045a48d4e73c040a725c3570049c77, type: 2}
+  m_Controller: {fileID: 9100000, guid: 086f04de76b3d45cb9f2c12eab28ff6b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -114,7 +113,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6253451780006832593
+--- !u!114 &4454708418693426983
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,13 +122,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 5703255524276774527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d522dcb9ab63fa418354c64acda2a1f, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf0eb5df25d44d78af8666ff3ade8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Path: {fileID: 0}
   currentState: {fileID: 0}
   playerTransform: {fileID: 0}
-  playerDetectionDistance: 2.5
+  playerDetectionDistance: 5
+--- !u!114 &4977459491390800442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703255524276774527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9b759d81194c8ca7243055c8f09041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolPoints: []
+  target: {fileID: 0}
+  speed: 3
+  closeEnoughDistance: 0.5
 --- !u!114 &846106214877675711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,34 +264,6 @@ CircleCollider2D:
   m_Offset: {x: 0.00538373, y: -0.053837776}
   serializedVersion: 2
   m_Radius: 0.54845405
---- !u!114 &6830957501044564510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5703255524276774527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8afca70120d55d43bb621dc1b2bb58a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  closeEnoughDistance: 0.5
---- !u!114 &524587758694884028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5703255524276774527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84bff98368164d56a671578aa9402249, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  closeEnoughDistance: 0.5
-  speed: 5
 --- !u!114 &7721255932204123171
 MonoBehaviour:
   m_ObjectHideFlags: 0

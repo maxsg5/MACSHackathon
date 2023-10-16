@@ -18,7 +18,7 @@ public class AIDirectionalAnimation : MonoBehaviour
 
     void Update()
     {
-        Vector3 direction = _aiController.currentState.GetDirection(); // We will define this method
+        Vector2 direction = _aiController.currentState.GetDirection(); // We will define this method
 
         float horizontal = direction.x;
         float vertical = direction.y;

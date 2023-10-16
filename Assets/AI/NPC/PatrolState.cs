@@ -4,17 +4,20 @@ using Pathfinding;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class WanderState : AIState
+public class PatrolState : AIState
 {
+    public Transform[] patrolPoints;
+    public Transform target;
     public float speed = 3.0f;
     public float closeEnoughDistance = 0.5f;
     private MazeGenerator mazeGenerator;  
     private GameObject targetPoint;
     private AIDestinationSetter _aiDestinationSetter;
     private Transform _playerTransform;
+    private int targetIndex = 0;
     
     private AIController _aiController;
-    private GridGraph _gridGraph;
+    // private GridGraph _gridGraph;
 
     private void OnDrawGizmos()
     {
@@ -37,7 +40,7 @@ public class WanderState : AIState
 
     public override void UpdateState(AIController controller)
     {
-        float distanceToTarget = Vector3.Distance(controller.transform.position, _aiDestinationSetter.target.position);
+        float distanceToTarget = Vector3.Distance(controller.transform.position, target.position);
         float distanceToPlayer = Vector3.Distance(controller.transform.position, _playerTransform.position);
 
         if (distanceToTarget < closeEnoughDistance)
@@ -55,19 +58,20 @@ public class WanderState : AIState
 
     public override Vector2 GetDirection()
     {
+        //todo change this 
         float x = _aiDestinationSetter.target.position.x - transform.position.x;
         float y = _aiDestinationSetter.target.position.y - transform.position.y;
         Vector2 dir = new Vector2(x, y);
         return dir.normalized;
     }
 
-    private void PickNewDestinationInMaze()
-    {
-        Room randomRoom = mazeGenerator.GetRandomRoom();  // Assuming you add a method to get a random room
-        Vector3Int roomCenter = randomRoom.GetCenterCoords();
-        Vector3 newPosition = (Vector3)roomCenter + new Vector3(0.5f, 0.5f, 0);  // Center of a tile within the room
-        _aiDestinationSetter.target.position = newPosition; 
-    }
+    // private void PickNewDestinationInMaze()
+    // {
+    //     Room randomRoom = mazeGenerator.GetRandomRoom();  // Assuming you add a method to get a random room
+    //     Vector3Int roomCenter = randomRoom.GetCenterCoords();
+    //     Vector3 newPosition = (Vector3)roomCenter + new Vector3(0.5f, 0.5f, 0);  // Center of a tile within the room
+    //     _aiDestinationSetter.target.position = newPosition; 
+    // }
     
     // private void PickNewDestination()
     // {
@@ -84,18 +88,31 @@ public class WanderState : AIState
     //     _aiDestinationSetter.target.position = randomWalkablePosition;
     // }
     
+    // private void PickNewDestination()
+    // {
+    //     GridGraph gridGraph = _aiController.Path.data.gridGraph;
+    //     GraphNode randomNode;
+    //     do
+    //     {
+    //         int randomX = UnityEngine.Random.Range(0, gridGraph.width);
+    //         int randomZ = UnityEngine.Random.Range(0, gridGraph.depth);  // Using 'Z' as it's a 2D grid
+    //         randomNode = gridGraph.GetNode(randomX, randomZ);
+    //     } while (randomNode == null || !randomNode.Walkable);
+    //
+    //     Vector3 randomWalkablePosition = (Vector3)randomNode.position;
+    //     targetPoint.transform.position = randomWalkablePosition;  // Update the position of the target point
+    // }
+
     private void PickNewDestination()
     {
-        GridGraph gridGraph = _aiController.Path.data.gridGraph;
-        GraphNode randomNode;
-        do
+        target = patrolPoints[targetIndex];
+        if (targetIndex + 1 > patrolPoints.Length)
         {
-            int randomX = UnityEngine.Random.Range(0, gridGraph.width);
-            int randomZ = UnityEngine.Random.Range(0, gridGraph.depth);  // Using 'Z' as it's a 2D grid
-            randomNode = gridGraph.GetNode(randomX, randomZ);
-        } while (randomNode == null || !randomNode.Walkable);
-
-        Vector3 randomWalkablePosition = (Vector3)randomNode.position;
-        targetPoint.transform.position = randomWalkablePosition;  // Update the position of the target point
+            targetIndex = 0;
+        }
+        else
+        {
+            targetIndex++;
+        }
     }
 }

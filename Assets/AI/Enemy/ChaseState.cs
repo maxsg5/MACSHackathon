@@ -43,7 +43,7 @@ public class ChaseState : AIState
         // Exiting logic
     }
 
-    public override Vector3 GetDirection()
+    public override Vector2 GetDirection()
     {
         return (_aiDestinationSetter.target.position - transform.position).normalized;
     }
