@@ -32,8 +32,8 @@ public class PatrolState : AIState
         _aiDestinationSetter = controller.GetComponent<AIDestinationSetter>();
         _playerTransform = controller.playerTransform;
         _aiController = controller;
-        targetPoint = new GameObject("TargetPoint");
-        _aiDestinationSetter.target = targetPoint.transform;  // Set the new GameObject as the target
+        //targetPoint = new GameObject("TargetPoint");
+        //_aiDestinationSetter.target = targetPoint.transform;  // Set the new GameObject as the target
         controller.GetComponent<AIPath>().maxSpeed = speed;
         PickNewDestination();
     }
@@ -47,6 +47,10 @@ public class PatrolState : AIState
         {
             PickNewDestination();
         }
+        
+        //move towards the target
+        Vector3 direction = (target.position - controller.transform.position).normalized;
+        controller.transform.position += direction * (speed * Time.deltaTime);
     }
 
     public override void ExitState(AIController controller)
@@ -58,11 +62,7 @@ public class PatrolState : AIState
 
     public override Vector2 GetDirection()
     {
-        //todo change this 
-        float x = _aiDestinationSetter.target.position.x - transform.position.x;
-        float y = _aiDestinationSetter.target.position.y - transform.position.y;
-        Vector2 dir = new Vector2(x, y);
-        return dir.normalized;
+        return (target.position - transform.position).normalized;
     }
 
     // private void PickNewDestinationInMaze()
@@ -106,7 +106,7 @@ public class PatrolState : AIState
     private void PickNewDestination()
     {
         target = patrolPoints[targetIndex];
-        if (targetIndex + 1 > patrolPoints.Length)
+        if (targetIndex + 1 > patrolPoints.Length-1)
         {
             targetIndex = 0;
         }
@@ -114,5 +114,6 @@ public class PatrolState : AIState
         {
             targetIndex++;
         }
+        
     }
 }
