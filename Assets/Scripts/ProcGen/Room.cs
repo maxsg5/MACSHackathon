@@ -37,33 +37,58 @@ public class Room
                 Vector3Int position = Origin + new Vector3Int(x, y, 0);
                 TileBase tileToSet = null;
                 Tilemap tilemap = null;
-
-                if (x == 0)
+                
+                //check if corner tile
+                if (x == 0 && y == 0)
+                {
+                    tileToSet = RoomConfig.southWestWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                if (x == 0 && y == RoomSize - 1)
+                {
+                    tileToSet = RoomConfig.northWestWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                if (x == RoomSize - 1 && y == 0)
+                {
+                    tileToSet = RoomConfig.southEastWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                if (x == RoomSize - 1 && y == RoomSize - 1)
+                {
+                    tileToSet = RoomConfig.northEastWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+               
+                //check if wall tile
+                if (x == 0 && y != 0 && y != RoomSize - 1)
                 {
                     tileToSet = RoomConfig.westWallTile;
                     tilemap = ObstacleTilemap;
                 }
-                else if (x == RoomSize - 1)
+                if (x == RoomSize - 1 && y != 0 && y != RoomSize - 1)
                 {
                     tileToSet = RoomConfig.eastWallTile;
                     tilemap = ObstacleTilemap;
                 }
-                else if (y == 0)
+                if (y == 0 && x != 0 && x != RoomSize - 1)
                 {
                     tileToSet = RoomConfig.southWallTile;
                     tilemap = ObstacleTilemap;
                 }
-                else if (y == RoomSize - 1)
+                if (y == RoomSize - 1 && x != 0 && x != RoomSize - 1)
                 {
                     tileToSet = RoomConfig.northWallTile;
                     tilemap = ObstacleTilemap;
-
                 }
-                else
+                
+                //check if floor tile
+                if (x != 0 && x != RoomSize - 1 && y != 0 && y != RoomSize - 1)
                 {
                     tileToSet = RoomConfig.floorTile;
                     tilemap = Tilemap;
                 }
+                
                 
                 tilemap.SetTile(position, tileToSet);
             }
