@@ -87,9 +87,9 @@ public class MazeGenerator : MonoBehaviour
     private IEnumerator Initialize()
     {
         yield return new WaitForSeconds(3.0f);
-        SpawnFloppyInLastRoom();
         //SpawnEnemyInLastRoom();
         SpawnEnemies(enemySpawnRate);
+        SpawnFloppyInLastRoom();
     }
 
     private void InitializeMaze()

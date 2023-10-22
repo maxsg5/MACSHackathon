@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class EnemyAIController : AIController
 {
+    private GameObject floppyObject;
+    public GameObject floppyUI;
     private enum AIState
     {
         Wander,
@@ -30,6 +33,10 @@ public class EnemyAIController : AIController
         chaseState = GetComponent<ChaseState>();
         aiState = AIState.Wander;
         SwitchState(wanderState);
+        
+        //find the floppy object tagged as "Floppy"
+        floppyObject = GameObject.FindGameObjectWithTag("Floppy");
+        floppyUI = GameObject.FindGameObjectWithTag("FloppyUI");
     }
 
     private IEnumerator Initialize()
@@ -78,12 +85,24 @@ public class EnemyAIController : AIController
         
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            //change opacity of floppy disk UI
+            floppyUI.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            floppyObject.SetActive(true);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Trigger Entered");
         if(other.CompareTag("Player"))
         {
-            
+            Debug.Log("Player Detected");
+            floppyUI.SetActive(false);
+            floppyObject.SetActive(true);
         }
     }
 
