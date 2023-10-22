@@ -517,6 +517,8 @@ MonoBehaviour:
     type: 3}
   enemyPrefab: {fileID: 5703255524276774527, guid: 808c5e9d84635d74ab1c0751e1f1c6eb,
     type: 3}
+  floppyPrefab: {fileID: 1003468775105912214, guid: ab6f2c8df0905e8418d1d9acd57b51d0,
+    type: 3}
   enemySpawnRate: 4
   roomConfigs:
   - {fileID: 11400000, guid: d2dd342bf7b21104ea31f63e89950ac0, type: 2}
@@ -2544,7 +2546,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: c3a71bd7cc2f603488d4591aba8cad32, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

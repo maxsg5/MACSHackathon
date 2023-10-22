@@ -19,6 +19,9 @@ public class MazeGenerator : MonoBehaviour
     private GameObject enemyPrefab;  // Assign your enemy prefab in the inspector
     
     [SerializeField]
+    private GameObject floppyPrefab;  // Assign your floppy prefab in the inspector
+    
+    [SerializeField]
     private int enemySpawnRate = 4;  // Assign your enemy spawn rate in the inspector
     
     [SerializeField]
@@ -84,6 +87,7 @@ public class MazeGenerator : MonoBehaviour
     private IEnumerator Initialize()
     {
         yield return new WaitForSeconds(3.0f);
+        SpawnFloppyInLastRoom();
         //SpawnEnemyInLastRoom();
         SpawnEnemies(enemySpawnRate);
     }
@@ -234,6 +238,13 @@ public class MazeGenerator : MonoBehaviour
         Room lastRoom = rooms[mazeWidth - 1, mazeHeight - 1];
         GameObject enemy = lastRoom.SpawnObjectInMaze(enemyPrefab);
         enemy.GetComponent<EnemyAIController>().Path = astarPath;
+    }
+    
+    //spawn enemy in last room
+    public void SpawnFloppyInLastRoom()
+    {
+        Room lastRoom = rooms[mazeWidth - 1, mazeHeight - 1];
+        GameObject floppy = lastRoom.SpawnObjectInMaze(floppyPrefab);
     }
     
 }
