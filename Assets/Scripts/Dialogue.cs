@@ -60,6 +60,8 @@ public class Dialogue : MonoBehaviour
         else
         {
             textDisplay.text = string.Empty;
+            //get playercontroller and set canMove to true
+            GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().canMove = true;
             gameObject.SetActive(false);
         }
     }

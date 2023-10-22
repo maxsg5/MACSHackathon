@@ -61,6 +61,11 @@ public class WanderState : AIState
         return dir.normalized;
     }
 
+    public override float GetSpeed()
+    {
+        return speed;
+    }
+
     private void PickNewDestinationInMaze()
     {
         Room randomRoom = mazeGenerator.GetRandomRoom();  // Assuming you add a method to get a random room

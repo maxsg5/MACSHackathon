@@ -18,8 +18,13 @@ public class AIDirectionalAnimation : MonoBehaviour
 
     void Update()
     {
+        //check if we have a current state
+        if (_aiController.currentState == null)
+        {
+            return;
+        }
         Vector2 direction = _aiController.currentState.GetDirection(); // We will define this method
-
+        float speed = _aiController.currentState.GetSpeed(); // We will define this method
         float horizontal = direction.x;
         float vertical = direction.y;
         
@@ -35,6 +40,6 @@ public class AIDirectionalAnimation : MonoBehaviour
 
         animator.SetFloat("Look X", horizontal);
         animator.SetFloat("Look Y", vertical);
-        animator.SetFloat("Speed", direction.magnitude);
+        animator.SetFloat("Speed", speed);
     }
 }

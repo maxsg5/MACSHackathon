@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NPCAIController : AIController
 {
-    private enum AIState
+    public enum AIState
     {
         Patrol,
         Talk
@@ -14,11 +14,13 @@ public class NPCAIController : AIController
     //private properties
     [SerializeField]
     private float playerDetectionDistance = 5.0f;
-    
+    private bool isTalking = false;
     //states
     private PatrolState patrolState;
-    private AIState aiState;
+    private TalkState talkState;
+    public AIState aiState;
     private AIState previousState;
+    
 
     private void Start()
     {
@@ -26,7 +28,29 @@ public class NPCAIController : AIController
         //wait a bit then start the initialization
         StartCoroutine(Initialize());
         patrolState = GetComponent<PatrolState>();
+        talkState = GetComponent<TalkState>();
         SwitchState(patrolState);
+    }
+
+    private new void Update()
+    {
+        base.Update();
+        
+        //switch state only if the state has changed
+        if (aiState != previousState)
+        {
+            switch (aiState)
+            {
+                case AIState.Patrol:
+                    SwitchState(patrolState);
+                    break;
+                case AIState.Talk:
+                    SwitchState(talkState);
+                    break;
+            }
+        }
+        previousState = aiState; //update previous state to current state
+        
     }
     
     private IEnumerator Initialize()
@@ -38,5 +62,15 @@ public class NPCAIController : AIController
     {
         //draw debug circle for player detection
         Gizmos.DrawWireSphere(transform.position, playerDetectionDistance);
+    }
+    
+    //check for box collision with player
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !isTalking)
+        {
+            aiState = AIState.Talk;
+            isTalking = true;
+        }
     }
 }

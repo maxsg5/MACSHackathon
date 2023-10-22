@@ -47,4 +47,9 @@ public class ChaseState : AIState
     {
         return (_aiDestinationSetter.target.position - transform.position).normalized;
     }
+
+    public override float GetSpeed()
+    {
+        return speed;
+    }
 }

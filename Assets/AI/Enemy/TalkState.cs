@@ -4,62 +4,75 @@ using Pathfinding;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class PatrolState : AIState
+public class TalkState : AIState
 {
-    public Transform[] patrolPoints;
-    public Transform target;
     public float speed = 3.0f;
     public float closeEnoughDistance = 0.5f;
-    public float talkTransitionDistance = 1.0f;
+    public GameObject dialogueBox;
     private MazeGenerator mazeGenerator;  
     private GameObject targetPoint;
-    private AIDestinationSetter _aiDestinationSetter;
+    //private AIDestinationSetter _aiDestinationSetter;
     private Transform _playerTransform;
-    private int targetIndex = 0;
     
     private AIController _aiController;
-    // private GridGraph _gridGraph;
+    private TopDownController _playerController;    
+    private GridGraph _gridGraph;
+    
+    private bool _isTalking = false;
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, closeEnoughDistance);
     }
 
     public override void EnterState(AIController controller)
     {
         controller.playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        mazeGenerator = GameObject.FindObjectOfType<MazeGenerator>();
-        _aiDestinationSetter = controller.GetComponent<AIDestinationSetter>();
+        //mazeGenerator = GameObject.FindObjectOfType<MazeGenerator>();
+        //_aiDestinationSetter = controller.GetComponent<AIDestinationSetter>();
         _playerTransform = controller.playerTransform;
         _aiController = controller;
         //targetPoint = new GameObject("TargetPoint");
         //_aiDestinationSetter.target = targetPoint.transform;  // Set the new GameObject as the target
-        controller.GetComponent<AIPath>().maxSpeed = speed;
-        PickNewDestination();
+        //controller.GetComponent<AIPath>().maxSpeed = speed;
+        //PickNewDestination();
+        
+        //disable player movement
+        _playerController = _playerTransform.GetComponent<TopDownController>();
+        _playerController.canMove = false;
+        
     }
 
     public override void UpdateState(AIController controller)
     {
-        float distanceToTarget = Vector3.Distance(controller.transform.position, target.position);
-        float distanceToPlayer = Vector3.Distance(controller.transform.position, _playerTransform.position);
-        
-        // if (distanceToPlayer < talkTransitionDistance)
-        // { 
-        //     //switch to talk state
-        //     //cast controller to NPCAIController
-        //     NPCAIController npcController = (NPCAIController) controller;
-        //     npcController.SwitchState(npcController.talkState);
-        //     
-        // }
-        
-        if (distanceToTarget < closeEnoughDistance)
+        if (_isTalking)
         {
-            PickNewDestination();
+            //check if the dialogue box is closed
+            if (!dialogueBox.activeSelf)
+            {
+                //switch back to patrol state
+                _isTalking = false;
+                _playerController.canMove = true; 
+                //cast controller to NPCAIController
+                NPCAIController npcController = (NPCAIController) controller;
+                npcController.aiState = NPCAIController.AIState.Patrol;
+            }
+            return;
+        }
+        //float distanceToTarget = Vector3.Distance(controller.transform.position, _aiDestinationSetter.target.position);
+        float distanceToPlayer = Vector3.Distance(controller.transform.position, _playerTransform.position);
+
+        if (distanceToPlayer < closeEnoughDistance)
+        { 
+            //open dialogue
+            dialogueBox.SetActive(true);
+            speed = 0.0f;
+            _isTalking = true;
         }
         
-        //move towards the target
-        Vector3 direction = (target.position - controller.transform.position).normalized;
+        //move towards the player
+        Vector3 direction = (_playerTransform.position - controller.transform.position).normalized;
         controller.transform.position += direction * (speed * Time.deltaTime);
     }
 
@@ -72,7 +85,7 @@ public class PatrolState : AIState
 
     public override Vector2 GetDirection()
     {
-        return (target.position - transform.position).normalized;
+        return (_playerTransform.position - transform.position).normalized;
     }
 
     public override float GetSpeed()
@@ -80,13 +93,7 @@ public class PatrolState : AIState
         return speed;
     }
 
-    // private void PickNewDestinationInMaze()
-    // {
-    //     Room randomRoom = mazeGenerator.GetRandomRoom();  // Assuming you add a method to get a random room
-    //     Vector3Int roomCenter = randomRoom.GetCenterCoords();
-    //     Vector3 newPosition = (Vector3)roomCenter + new Vector3(0.5f, 0.5f, 0);  // Center of a tile within the room
-    //     _aiDestinationSetter.target.position = newPosition; 
-    // }
+    
     
     // private void PickNewDestination()
     // {
@@ -117,18 +124,4 @@ public class PatrolState : AIState
     //     Vector3 randomWalkablePosition = (Vector3)randomNode.position;
     //     targetPoint.transform.position = randomWalkablePosition;  // Update the position of the target point
     // }
-
-    private void PickNewDestination()
-    {
-        target = patrolPoints[targetIndex];
-        if (targetIndex + 1 > patrolPoints.Length-1)
-        {
-            targetIndex = 0;
-        }
-        else
-        {
-            targetIndex++;
-        }
-        
-    }
 }
