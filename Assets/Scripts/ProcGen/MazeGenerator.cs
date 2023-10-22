@@ -56,7 +56,7 @@ public class MazeGenerator : MonoBehaviour
         InitializeMaze();
         
         rooms[0, 0].TearDownWall(Direction.West);
-        rooms[0, 0].TearDownWall(Direction.South);
+        //rooms[0, 0].TearDownWall(Direction.South);
         //StartCoroutine(GenerateMaze(rooms[0, 0]));
         GenerateMaze(rooms[0, 0]);
         //CreateSafeZones();
