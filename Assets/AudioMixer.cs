@@ -32,8 +32,6 @@ public class AudioMixer : MonoBehaviour
         }
     }
 
-    
-
     private IEnumerator CrossfadeToTrack(AudioClip trackToPlay)
     {
         // Determine which audio source is playing and which is silent
