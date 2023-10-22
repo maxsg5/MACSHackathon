@@ -507,7 +507,7 @@ MonoBehaviour:
     type: 3}
   enemySpawnRate: 4
   roomConfigs:
-  - {fileID: 11400000, guid: 8f7d5855c7eb246ceb957759fe515407, type: 2}
+  - {fileID: 11400000, guid: d2dd342bf7b21104ea31f63e89950ac0, type: 2}
   roomSize: 10
   tilemap: {fileID: 2138830651}
   obstacleTilemap: {fileID: 1271896461}
