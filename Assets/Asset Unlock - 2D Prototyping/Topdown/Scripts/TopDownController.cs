@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class TopDownController : MonoBehaviour
 {
+    public bool hasFloppyDisk = false;
+    
     // ========= MOVEMENT =================
     public float speed = 4;
+    public bool canMove = true;
     
     // =========== MOVEMENT ==============
     Rigidbody2D rigidbody2d;
@@ -25,6 +28,14 @@ public class TopDownController : MonoBehaviour
 
     void Update()
     {
+        //disable movement
+        if (!canMove)
+        {
+            movement = Vector2.zero;
+            animator.SetFloat("Speed", 0);
+            return;
+        }
+        
         // ============== MOVEMENT ======================
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");

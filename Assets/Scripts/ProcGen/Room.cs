@@ -15,14 +15,16 @@ public class Room
     public Vector3Int Origin { get; private set; }
     public int RoomSize { get; private set; }
     public Tilemap Tilemap { get; private set; }
+    public Tilemap ObstacleTilemap { get; private set; }
     public RoomConfig RoomConfig { get; private set; }
     public bool Visited { get; private set; } = false;
 
-    public Room(Vector3Int origin, int roomSize, Tilemap tilemap, RoomConfig roomConfig)
+    public Room(Vector3Int origin, int roomSize, Tilemap tilemap, Tilemap obstacleTilemap, RoomConfig roomConfig)
     {
         Origin = origin;
         RoomSize = roomSize;
         Tilemap = tilemap;
+        ObstacleTilemap = obstacleTilemap;
         RoomConfig = roomConfig;
     }
 
@@ -34,14 +36,61 @@ public class Room
             {
                 Vector3Int position = Origin + new Vector3Int(x, y, 0);
                 TileBase tileToSet = null;
-
-                if (x == 0) tileToSet = RoomConfig.westWallTile;
-                else if (x == RoomSize - 1) tileToSet = RoomConfig.eastWallTile;
-                else if (y == 0) tileToSet = RoomConfig.southWallTile;
-                else if (y == RoomSize - 1) tileToSet = RoomConfig.northWallTile;
-                else tileToSet = RoomConfig.floorTile;
-
-                Tilemap.SetTile(position, tileToSet);
+                Tilemap tilemap = null;
+                
+                //check if corner tile
+                if (x == 0 && y == 0)
+                {
+                    tileToSet = RoomConfig.southWestWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                if (x == 0 && y == RoomSize - 1)
+                {
+                    tileToSet = RoomConfig.northWestWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                if (x == RoomSize - 1 && y == 0)
+                {
+                    tileToSet = RoomConfig.southEastWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                if (x == RoomSize - 1 && y == RoomSize - 1)
+                {
+                    tileToSet = RoomConfig.northEastWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+               
+                //check if wall tile
+                if (x == 0 && y != 0 && y != RoomSize - 1)
+                {
+                    tileToSet = RoomConfig.westWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                if (x == RoomSize - 1 && y != 0 && y != RoomSize - 1)
+                {
+                    tileToSet = RoomConfig.eastWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                if (y == 0 && x != 0 && x != RoomSize - 1)
+                {
+                    tileToSet = RoomConfig.southWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                if (y == RoomSize - 1 && x != 0 && x != RoomSize - 1)
+                {
+                    tileToSet = RoomConfig.northWallTile;
+                    tilemap = ObstacleTilemap;
+                }
+                
+                //check if floor tile
+                if (x != 0 && x != RoomSize - 1 && y != 0 && y != RoomSize - 1)
+                {
+                    tileToSet = RoomConfig.floorTile;
+                    tilemap = Tilemap;
+                }
+                
+                
+                tilemap.SetTile(position, tileToSet);
             }
         }
     }
@@ -50,6 +99,13 @@ public class Room
     {
         Vector3 safeZonePosition = GetCenterCoords() + new Vector3(0.5f, 0.5f, 0);
         GameObject safeZone = GameObject.Instantiate(safeZonePrefab, safeZonePosition, Quaternion.identity);
+        return safeZone;
+    }
+    
+    public GameObject SpawnObjectInMaze(GameObject prefab)
+    {
+        Vector3 safeZonePosition = GetCenterCoords() + new Vector3(0.5f, 0.5f, 0);
+        GameObject safeZone = GameObject.Instantiate(prefab, safeZonePosition, Quaternion.identity);
         return safeZone;
     }
     
@@ -105,6 +161,8 @@ public class Room
             for (int x = wallStart.x; x <= wallEnd.x; x++)
             {
                 Vector3Int position = new Vector3Int(x, wallStart.y, 0);
+                //remove tile from obstacle tilemap
+                ObstacleTilemap.SetTile(position, null);
                 Tilemap.SetTile(position, RoomConfig.floorTile);
             }
         }
@@ -114,6 +172,8 @@ public class Room
             for (int y = wallStart.y; y <= wallEnd.y; y++)
             {
                 Vector3Int position = new Vector3Int(wallStart.x, y, 0);
+                //remove tile from obstacle tilemap
+                ObstacleTilemap.SetTile(position, null);
                 Tilemap.SetTile(position, RoomConfig.floorTile);
             }
         }
@@ -146,4 +206,6 @@ public class Room
             }
         }
     }
+    
+    
 }

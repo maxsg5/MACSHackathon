@@ -9,11 +9,20 @@ using Random = UnityEngine.Random;
 public class MazeGenerator : MonoBehaviour
 {
 
-    // [SerializeField]
-    // private AstarPath astarPath;
+    [SerializeField]
+    private AstarPath astarPath;
     
     [SerializeField]
     private GameObject safeZonePrefab;  // Assign your safe zone tile in the inspector
+    
+    [SerializeField]
+    private GameObject enemyPrefab;  // Assign your enemy prefab in the inspector
+    
+    [SerializeField]
+    private GameObject floppyPrefab;  // Assign your floppy prefab in the inspector
+    
+    [SerializeField]
+    private int enemySpawnRate = 4;  // Assign your enemy spawn rate in the inspector
     
     [SerializeField]
     private List<RoomConfig> roomConfigs;
@@ -23,6 +32,9 @@ public class MazeGenerator : MonoBehaviour
     
     [SerializeField]
     private Tilemap tilemap;
+    
+    [SerializeField]
+    private Tilemap obstacleTilemap;
     
     [SerializeField]
     private float delay = 0.1f;
@@ -38,6 +50,7 @@ public class MazeGenerator : MonoBehaviour
     private Room[,] rooms;
     
     private int roomCounter = 0; //used for CreateSafeZone()
+    private int enemyCounter = 0; //used for SpawnEnemies()
 
     void Start()
     {
@@ -46,11 +59,39 @@ public class MazeGenerator : MonoBehaviour
         InitializeMaze();
         
         rooms[0, 0].TearDownWall(Direction.West);
-        rooms[0, 0].TearDownWall(Direction.South);
-        StartCoroutine(GenerateMaze(rooms[0, 0]));
-        CreateSafeZones();
+        //rooms[0, 0].TearDownWall(Direction.South);
+        //StartCoroutine(GenerateMaze(rooms[0, 0]));
+        GenerateMaze(rooms[0, 0]);
+        //CreateSafeZones();
+        //wait a bit then scan the astar grid
+        StartCoroutine(ScanAstarGrid());
+        
+        
+    }
+
+    
+    public Room GetRandomRoom()
+    {
+        int randomX = Random.Range(0, mazeWidth);
+        int randomY = Random.Range(0, mazeHeight);
+        return rooms[randomX, randomY];
     }
     
+    private IEnumerator ScanAstarGrid()
+    {
+        yield return new WaitForSeconds(0.5f);
+        astarPath.Scan();
+        StartCoroutine(Initialize());
+    }
+    
+    private IEnumerator Initialize()
+    {
+        yield return new WaitForSeconds(3.0f);
+        //SpawnEnemyInLastRoom();
+        SpawnEnemies(enemySpawnRate);
+        SpawnFloppyInLastRoom();
+    }
+
     private void InitializeMaze()
     {
         // Initialize the rooms array
@@ -64,7 +105,7 @@ public class MazeGenerator : MonoBehaviour
                 RoomConfig roomConfig = roomConfigs[Random.Range(0, roomConfigs.Count)];
                 
                 // Create a new Room object
-                Room newRoom = new Room(roomOrigin, roomSize, tilemap, roomConfig);
+                Room newRoom = new Room(roomOrigin, roomSize, tilemap, obstacleTilemap, roomConfig);
             
                 // Generate the room
                 newRoom.GenerateRoom();
@@ -75,7 +116,7 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    private IEnumerator GenerateMaze(Room currentRoom)
+    private void GenerateMaze(Room currentRoom)
     {
         
         currentRoom.MarkAsVisited();
@@ -89,8 +130,10 @@ public class MazeGenerator : MonoBehaviour
         {
             Room nextRoom = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
             ClearWallBetween(currentRoom, nextRoom);
-            yield return new WaitForSeconds(delay);
-            yield return StartCoroutine(GenerateMaze(nextRoom));
+            //uncomment below and change return type to IEnumerator to see the maze being generated as a coroutine.
+            //yield return new WaitForSeconds(delay);
+            //yield return StartCoroutine(GenerateMaze(nextRoom));
+            GenerateMaze(nextRoom);
             unvisitedNeighbors = GetUnvisitedNeighbors(currentRoom);
         }
     }
@@ -170,4 +213,38 @@ public class MazeGenerator : MonoBehaviour
             }
         }
     }
+    
+    private void SpawnEnemies(int nthRoom)
+    {
+        
+        for (int x = 0; x < mazeWidth; x++)
+        {
+            for (int y = 0; y < mazeHeight; y++)
+            {
+                enemyCounter++;
+                if (enemyCounter % nthRoom == 0)
+                {
+                    Room room = rooms[x, y];
+                    GameObject enemy = room.SpawnObjectInMaze(enemyPrefab);
+                    enemy.GetComponent<EnemyAIController>().Path = astarPath;
+                }
+            }
+        }
+    }
+    
+    //spawn enemy in last room
+    public void SpawnEnemyInLastRoom()
+    {
+        Room lastRoom = rooms[mazeWidth - 1, mazeHeight - 1];
+        GameObject enemy = lastRoom.SpawnObjectInMaze(enemyPrefab);
+        enemy.GetComponent<EnemyAIController>().Path = astarPath;
+    }
+    
+    //spawn enemy in last room
+    public void SpawnFloppyInLastRoom()
+    {
+        Room lastRoom = rooms[mazeWidth - 1, mazeHeight - 1];
+        GameObject floppy = lastRoom.SpawnObjectInMaze(floppyPrefab);
+    }
+    
 }

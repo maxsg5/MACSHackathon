@@ -10,4 +10,8 @@ public class RoomConfig : ScriptableObject
     public TileBase southWallTile;
     public TileBase eastWallTile;
     public TileBase westWallTile;
+    public TileBase northEastWallTile;
+    public TileBase northWestWallTile;
+    public TileBase southEastWallTile;
+    public TileBase southWestWallTile;
 }

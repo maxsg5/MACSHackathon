@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorTile: {fileID: 11400000, guid: bb8f924bd05784a4288fdab2d6505a35, type: 2}
   visitedFloorTile: {fileID: 11400000, guid: df4e07e4067fd744a9df65cdd8983ec8, type: 2}
-  northWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
-  southWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
-  eastWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
-  westWallTile: {fileID: 11400000, guid: c13e303334041431cb3ecc33f87cb2ee, type: 2}
+  northWallTile: {fileID: 11400000, guid: d3ff0486c6a02804893ad7f4b09f5f23, type: 2}
+  southWallTile: {fileID: 11400000, guid: d3ff0486c6a02804893ad7f4b09f5f23, type: 2}
+  eastWallTile: {fileID: 11400000, guid: 8d9a6f5a4c1ec9a43b6f03d292a8a16a, type: 2}
+  westWallTile: {fileID: 11400000, guid: 8d9a6f5a4c1ec9a43b6f03d292a8a16a, type: 2}
+  northEastWallTile: {fileID: 11400000, guid: 4ef32ebf6d668f7448019bf15f809373, type: 2}
+  northWestWallTile: {fileID: 11400000, guid: ca10f35438e3a9b498e3928bf5a0a654, type: 2}
+  southEastWallTile: {fileID: 11400000, guid: 752e8381be08d344caf1c5ffbf09a6c7, type: 2}
+  southWestWallTile: {fileID: 11400000, guid: a3aaba8e8b9eca74b9dd3d87da2398b6, type: 2}
