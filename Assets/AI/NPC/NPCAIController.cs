@@ -8,7 +8,8 @@ public class NPCAIController : AIController
     public enum AIState
     {
         Patrol,
-        Talk
+        Talk,
+        FinalTalk
     };
     
     //private properties
@@ -18,8 +19,10 @@ public class NPCAIController : AIController
     //states
     private PatrolState patrolState;
     private TalkState talkState;
+    private FinalTalkState finalTalkState;
     public AIState aiState;
     private AIState previousState;
+    private bool finalTalk = false;
     
 
     private void Start()
@@ -29,12 +32,25 @@ public class NPCAIController : AIController
         StartCoroutine(Initialize());
         patrolState = GetComponent<PatrolState>();
         talkState = GetComponent<TalkState>();
+        finalTalkState = GetComponent<FinalTalkState>();
         SwitchState(patrolState);
     }
 
     private new void Update()
     {
         base.Update();
+        
+        //get distance to player
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        
+        //check if player has floppy disk
+        if (playerTransform.GetComponent<TopDownController>().hasFloppyDisk && finalTalk == false && distanceToPlayer <= playerDetectionDistance )
+        {
+            finalTalk = true;
+            //if player has floppy disk, switch to talk state
+            aiState = AIState.FinalTalk;
+        }
+        
         
         //switch state only if the state has changed
         if (aiState != previousState)
@@ -46,6 +62,9 @@ public class NPCAIController : AIController
                     break;
                 case AIState.Talk:
                     SwitchState(talkState);
+                    break;
+                case AIState.FinalTalk:
+                    SwitchState(finalTalkState);
                     break;
             }
         }

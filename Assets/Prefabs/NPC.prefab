@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 3538093873471077925}
   - component: {fileID: 7721255932204123171}
   - component: {fileID: 632737635888313444}
+  - component: {fileID: 5581596163902525418}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Enemy
@@ -340,3 +341,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 48.3, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5581596163902525418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703255524276774527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e525dbd69c44bf9ee684141f7dd585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  closeEnoughDistance: 0.5
+  dialogueBox: {fileID: 0}

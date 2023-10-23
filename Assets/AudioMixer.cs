@@ -57,4 +57,10 @@ public class AudioMixer : MonoBehaviour
         isFirstAudioSourcePlaying = !isFirstAudioSourcePlaying;
         isOriginalTrackPlaying = !isOriginalTrackPlaying;
     }
+    
+    public void StopAllAudio()
+    {
+        audioSource1.Stop();
+        audioSource2.Stop();
+    }
 }

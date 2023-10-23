@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class TopDownController : MonoBehaviour
 {
+    public bool hasFloppyDisk = false;
+    
     // ========= MOVEMENT =================
     public float speed = 4;
     public bool canMove = true;

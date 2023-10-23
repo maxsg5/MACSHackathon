@@ -9,6 +9,9 @@ public class Dialogue : MonoBehaviour
     public string[] sentences;
     private int index;
     public float typingSpeed;
+    public bool isFinalDialogue = false;
+    public GameObject WinScreen;
+    public AudioMixer audioSource;
     
     // Start is called before the first frame update
     void Start()
@@ -60,9 +63,19 @@ public class Dialogue : MonoBehaviour
         else
         {
             textDisplay.text = string.Empty;
-            //get playercontroller and set canMove to true
-            GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().canMove = true;
-            gameObject.SetActive(false);
+            if (isFinalDialogue)
+            {
+                audioSource.StopAllAudio();
+                //show win screen
+                WinScreen.SetActive(true);
+            }
+            else
+            {
+              //get playercontroller and set canMove to true
+              GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().canMove = true;
+              gameObject.SetActive(false);  
+            }
+            
         }
     }
 }

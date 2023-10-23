@@ -92,26 +92,9 @@ public class EnemyAIController : AIController
             //change opacity of floppy disk UI
             floppyUI.GetComponent<Image>().color = new Color(1, 1, 1, 0);
             floppyObject.SetActive(true);
-        }
-    }
+            playerTransform.gameObject.GetComponent<TopDownController>().hasFloppyDisk = false;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Trigger Entered");
-        if(other.CompareTag("Player"))
-        {
-            Debug.Log("Player Detected");
-            floppyUI.SetActive(false);
-            floppyObject.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Debug.Log("Trigger Exited");
-        if(other.CompareTag("Player"))
-        {
-            
+            //TODO: add logic here for showing jumpscare and translating player to start of maze.
         }
     }
 }
