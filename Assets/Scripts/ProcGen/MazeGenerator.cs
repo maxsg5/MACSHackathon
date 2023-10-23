@@ -8,6 +8,14 @@ using Random = UnityEngine.Random;
 
 public class MazeGenerator : MonoBehaviour
 {
+    private enum Difficulty
+    {
+        Easy,
+        Medium,
+        Hard
+    }
+    
+    private Difficulty difficulty = Difficulty.Easy;
 
     [SerializeField]
     private AstarPath astarPath;
@@ -52,6 +60,72 @@ public class MazeGenerator : MonoBehaviour
     private int roomCounter = 0; //used for CreateSafeZone()
     private int enemyCounter = 0; //used for SpawnEnemies()
 
+    private Room lastRoom;
+
+    private void Awake()
+    {
+        //check if GameManager exists
+        if (GameManager._instance == null)
+        {
+            Debug.Log("GameManager not found");
+        }
+        else
+        {
+            seed = GameManager._instance.GetMazeSeed();
+                Debug.Log(seed);
+                 
+                switch (GameManager._instance.GetDifficulty())
+                {
+                    case 0:
+                        difficulty = Difficulty.Easy;
+                        ChangePathToEasy();
+                        break;
+                    case 1:
+                        difficulty = Difficulty.Medium;
+                         ChangePathToMedium();
+                        break;
+                    case 2:
+                        difficulty = Difficulty.Hard;
+                         ChangePathToHard();
+                        break;
+                }
+                
+                Debug.Log(difficulty);
+        }
+       
+       
+    }
+
+    private void ChangePathToEasy()
+    {
+        //change the pathfinding grid to be smaller
+        astarPath.data.gridGraph.SetDimensions(20, 20, 1);
+        astarPath.data.gridGraph.center = new Vector3(10, 10, 0);
+        astarPath.data.gridGraph.SetUpOffsetsAndCosts();
+        mazeWidth = 2;
+        mazeHeight = 2;
+    }
+
+    private void ChangePathToMedium()
+    {
+        //change the pathfinding grid to be smaller
+        astarPath.data.gridGraph.SetDimensions(50, 50, 1);
+        astarPath.data.gridGraph.center = new Vector3(25, 25, 0);
+        astarPath.data.gridGraph.SetUpOffsetsAndCosts();
+        mazeWidth = 5;
+        mazeHeight = 5;
+    }
+
+    private void ChangePathToHard()
+    {
+        //change the pathfinding grid to be smaller
+        astarPath.data.gridGraph.SetDimensions(100, 100, 1);
+        astarPath.data.gridGraph.center = new Vector3(50, 50, 0);
+        astarPath.data.gridGraph.SetUpOffsetsAndCosts();
+        mazeWidth = 10;
+        mazeHeight = 10;
+    }
+
     void Start()
     {
         Random.InitState(seed);
@@ -90,6 +164,7 @@ public class MazeGenerator : MonoBehaviour
         //SpawnEnemyInLastRoom();
         SpawnEnemies(enemySpawnRate);
         SpawnFloppyInLastRoom();
+        
     }
 
     private void InitializeMaze()
@@ -125,11 +200,12 @@ public class MazeGenerator : MonoBehaviour
         currentRoom.ChangeFloorTile(currentRoom.RoomConfig.floorTile);
         
         List<Room> unvisitedNeighbors = GetUnvisitedNeighbors(currentRoom);
-
+        
         while (unvisitedNeighbors.Count > 0)
         {
             Room nextRoom = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
             ClearWallBetween(currentRoom, nextRoom);
+            lastRoom = nextRoom;
             //uncomment below and change return type to IEnumerator to see the maze being generated as a coroutine.
             //yield return new WaitForSeconds(delay);
             //yield return StartCoroutine(GenerateMaze(nextRoom));
@@ -243,7 +319,8 @@ public class MazeGenerator : MonoBehaviour
     //spawn enemy in last room
     public void SpawnFloppyInLastRoom()
     {
-        Room lastRoom = rooms[mazeWidth - 1, mazeHeight - 1];
+        Debug.Log(lastRoom);
+        // Room lastRoom = rooms[mazeWidth - 1, mazeHeight - 1];
         GameObject floppy = lastRoom.SpawnObjectInMaze(floppyPrefab);
     }
     

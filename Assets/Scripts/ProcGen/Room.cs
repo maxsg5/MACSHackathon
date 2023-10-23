@@ -206,6 +206,9 @@ public class Room
             }
         }
     }
-    
-    
+
+    public override string ToString()
+    {
+        return $"Room at {Origin} with size {RoomSize}";
+    }
 }

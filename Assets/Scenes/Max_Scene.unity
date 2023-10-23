@@ -395,7 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACIn+sIlhJiagIAACEFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMziVjYwKht5YQ0kMSJrSTiy9CWmMNsuSRZD6S4b93JX+WnhBv3+6+fVr5iwhlS2BOm7UR/EVzIN9HxJ/Jt1EffIYz3Wu1FZ/Qcj4Ed7kn0cB5p05oxGOfZnUBzgj2Q+2lJ0cIVkpk2hQrvoelts4inFFpAUNGO5+tEPoakTP+jBc+5YKnydyfPvG0iEZXPDJQDkxPjVtm3BJrXqWYpEUJ3Ivu6ZOucE1TOE7D8NKZllLYRgtxlzLMui1zMOCH5YLiaKF/fJcgkIPY587XG2a/ZZkF10xu6OVRGPSoLkt+6tq4gtpDLexIZeUbzaZBU13z5b/wOA7hzOjiuW0bR76FywU7vNMLo9YNjB3CjwPlwZ4TlQe6k/CRg3rVa6MrxTHoTOVTKwuTx/5vN9kyB3bo8VrqDViVvd+d3XfJwzR+mCWz1TiaNzflB7oGJ85LKYqd599Na2ArdTA/bAIYvKZfqD7siW3qIuol/bHwm+6HC9UEnoSxDkPNyMpr3enKeCpZBQP9aJVbaqMgwM0EJSgq3WWDZdztdd7EBm1vIk/UP52meRNrX8RNSoB7fhTdhDb61N2czfXpBWz+VjkpFPSifeAVfVpqpeptG3rSpm0rk1E2SNtXgv+7Z+Q+me+myWJ3n1DGZws+5km0uM8mCY1m8UPEYhIWUSick8pNLbSxB29N9cUVLl37RRmtDS3D5nNDT2vxWeiB5UJlessMgHqrK3TCwWATfKJ8xQUatAXnhAr3Tb5SIjU7AE+7QmmYdHV2hqZ9lZSU4qidR1KyDJ+QlHi4W+yNgaOAk2/eFruS619QSwMEFAAACAgAAIif67/73JRtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJKpsXmSibFlkqlxYnKKmWWKboqxgaVpmpFxooGZoYVBsqFSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAIif6wiWEmJqAgAAIQUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAIif67/73JRtAAAAeAAAAAkAJAAAAAAAAAAAAAAAtwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABvAwAAAAA=
+    dataString: UEsDBBQAAAgIAACIn+svZxLKbAIAACMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzoWxMR+htxYI6SEJE9rJxRchrbEGWfJIcoBk+O9dyTZ26Qnx9u3u26eVv4hQtgTmtNkYwZ81B/J9QPyZfBt0wSc404NWO/EJLeddcJd7Eg2cN+qERjz2aVYX4IxgP9RBenKEYKVEpk2x5gdYausswhmVFjBktPPZCqGvATnjz3DhUy54Gs/96RNPi2hwxSMD5cB01GnLnLbEmlcpJmlRAveiO3octXw8BaLCgRqOF8+0lMI2aoi7lGHaXZmDAT8uFxSHCwriUYJADuKQOy+1n/2aZRZcM7uhl5Uw6FJdlvzUtXUFtcda2geVlW80mwRNdc3n/8LDOIQzo4untm09kcsFO77RC6PW9aztw6ue8mDQicoj3Ut4z0G96I3RleIYdKbyqZWF8ar7e5tsmQM7dngt9Q6sys7xm9+j+cNDnCzm8/Uwmjd35Qe6BifOSymKveePJjWwkzqYH3YBDF7TL1QfNsU2dRH1kv5Y+E0P/ZVqAo/CWIehZmTlte51ZTyVrIOBfrTKLbVREOBmghIUle6yxTLu/jrvYr22d5FH6h9P07yJtW/iLiXAHT+K7kJbfbrdnM316Rls/lo5KRR0on3gBX1aaqXqbet70qbtKpNR1ks7VIL/u2dkmsz3k2SxnyaU8dmCD3kSLabZOKHRLH6IWEzCIgqFc1K5rYU29uCtqa64wqVrvymDjaFl2Hxu6GkjPgvds1yoTO+YAVCvdYWbcDDYBJ8oX3OBBu3AOaHCfZOvlEjNjsDTW6E0TLo+O0PTrkpKSvGhnUdSsgwfkZR4+LbYWwMfAk6+eVvsSq5/AVBLAwQUAAAICAAAiJ/rv/vclG0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0kqmxeZKJsWWSqXFicoqZZYpuirGBpWmakXGigZmhhUGyoVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAiJ/rL2cSymwCAAAjBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAiJ/rv/vclG0AAAB4AAAACQAkAAAAAAAAAAAAAAC5AgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAHEDAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -1038,8 +1038,8 @@ MonoBehaviour:
   tilemap: {fileID: 2138830651}
   obstacleTilemap: {fileID: 1271896461}
   delay: 0.01
-  mazeWidth: 2
-  mazeHeight: 2
+  mazeWidth: 5
+  mazeHeight: 5
   seed: 50
 --- !u!4 &550397348
 Transform:
@@ -1729,7 +1729,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1216146395}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1937673686}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: SwitchToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1216146395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3628,6 +3640,50 @@ MonoBehaviour:
   - {x: 3.2399974, y: -0.56815916, z: 0}
   - {x: 2.2721376, y: 1.8359189, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &1937673685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1937673687}
+  - component: {fileID: 1937673686}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1937673686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937673685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f808b00638f5a4cbc402c6e83eb135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1937673687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937673685}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.178694, y: -5.4385524, z: -0.15004355}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1961921194
 GameObject:
   m_ObjectHideFlags: 0
@@ -9065,3 +9121,4 @@ SceneRoots:
   - {fileID: 392435194}
   - {fileID: 1438615336}
   - {fileID: 1434333827}
+  - {fileID: 1937673687}
