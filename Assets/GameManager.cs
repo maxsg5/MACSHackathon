@@ -36,7 +36,12 @@ public class GameManager : MonoBehaviour
     
     public void SetMazeSeed()
     {
-        int seed = int.Parse(seedInput.text);
+        int seed = 1;
+        //check if seedInput.text has anything
+        if (seedInput.text != "")
+        {
+            seed = int.Parse(seedInput.text);
+        }
         //make sure a valid int is passed
         if (seed < 1)
         {
