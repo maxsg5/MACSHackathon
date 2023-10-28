@@ -3,7 +3,7 @@
 This repository is created for submission to the MacEwan University
 Computer Science Club Hackathon 2023.
 
-## Contributing
+## Team Digital dread 
 
 - Max Schafer(4th year)
 - Saphia Mohamed (3rd year)
