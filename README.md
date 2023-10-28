@@ -1,6 +1,7 @@
 <div id="header" align="center">
-<img src ="https://media.giphy.com/media/f4V2mqvv0wT9m/giphy.gif" width = "300"/> 
+  <img src ="https://media.giphy.com/media/oFYP2tmMBAZCt2hzb0/giphy.gif" width = "300"/> 
 </div>
+
   <h1 align = "center">  
   Hi there!! Welcome to MACSHackathon
 </h1>
@@ -12,7 +13,7 @@ Computer Science Club Hackathon 2023.
 
 ## Team Digital dread 
 <div id="header" align="center">
-  <img src ="https://media.giphy.com/media/j5teW9d6Jhp2wuePRa/giphy.gif" width = "300"/> 
+<img src ="https://media.giphy.com/media/U76vDRlMYNjy2eiYkt/giphy.gif" width = "300"/> 
 </div>
 
 
@@ -23,34 +24,37 @@ Computer Science Club Hackathon 2023.
 
 ## Description
 <div id="header" align="center">
-  <img src ="https://media.giphy.com/media/ACLCA6bvwBEvC/giphy.gif" width = "300"/> 
+  <img src ="https://media.giphy.com/media/HbvaeI4Lg0FOw/giphy.gif" width = "300"/> 
 </div>
 
 
-## Credit
-<div id="header" align = "center">
-  <img src ="https://media.giphy.com/media/a6pzK009rlCak/giphy.gif" width = "300"/> 
-</div>
-
-- Asset Name
-  - Source:
-  - License:
-
-- Asset Name
-  - Source:
-  - License:
 
 
 ## Installation
 <div id="header" align = "center">
-  <img src ="https://media.giphy.com/media/wkW0maGDN1eSc/giphy.gif" width = "300"/> 
+  <img src ="https://media.giphy.com/media/uElxuHGtIuK0o/giphy.gif" width = "300"/> 
 </div>
 
 
 
 ## Usage
 <div id="header" align = "center">
-  <img src ="https://media.giphy.com/media/g3ZlHx1iqhCOCcY3p2/giphy.gif" width = "300"/> 
+  <img src ="https://media.giphy.com/media/t5wDMqMYp5NXa/giphy.gif" width = "300"/> 
 </div>
+
+## Credit
+
+<div id="header" align = "center">
+  <img src ="https://media.giphy.com/media/ff748OtDfBwuk/giphy.gif" width = "300"/> 
+</div>
+
+- Asset Name
+  - Source:
+  - License:
+
+- Asset Name
+  - Source:
+  - License:
+
 
 
