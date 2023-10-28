@@ -11,7 +11,6 @@ Computer Science Club Hackathon 2023.
 
 ## Description
 
----
 
 ## Credit
 
@@ -23,10 +22,9 @@ Computer Science Club Hackathon 2023.
   - Source:
   - License:
 
----
 
-### Installation
+## Installation
 
----
 
-### Usage
+## Usage
+
