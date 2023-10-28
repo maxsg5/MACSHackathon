@@ -1,6 +1,6 @@
 # MACSHackathon
 
-This repository is created for the submission to the MacEwan University
+This repository is created for submission to the MacEwan University
 Computer Science Club Hackathon 2023.
 
 ---
@@ -32,6 +32,3 @@ Computer Science Club Hackathon 2023.
 ---
 
 ### Usage
-
----
-
