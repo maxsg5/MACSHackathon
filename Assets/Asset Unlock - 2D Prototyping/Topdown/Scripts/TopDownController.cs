@@ -19,6 +19,9 @@ public class TopDownController : MonoBehaviour
     public AudioSource jumpScareAudio;
 
     public ParticleSystem stunParticles;
+
+    public AudioSource stunAudio;
+    public AudioClip stunClip;
     
     // ========= MOVEMENT =================
     public float speed = 4;
@@ -100,6 +103,7 @@ public class TopDownController : MonoBehaviour
             canStun = false;
             Debug.Log("Stunning");
             Stun();
+            stunAudio.PlayOneShot(stunClip);
             
         }
 

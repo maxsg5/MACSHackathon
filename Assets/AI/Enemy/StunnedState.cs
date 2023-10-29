@@ -7,19 +7,25 @@ public class StunnedState : AIState
     public float StunDuration = 3.0f;
     // public float closeEnoughDistance = 0.5f;
     public float speed = 0.0f;
+    public AudioClip stunSound;
+    private AudioSource audioSource;
+    
     //public float playerDetectionDistance = 5.0f;
     //public MazeGenerator mazeGenerator;  // Reference to your MazeGenerator script
     private Animator animator;
 
     private AIDestinationSetter _aiDestinationSetter;
     private Transform _playerTransform;
+    
 
     public override void EnterState(AIController controller)
     {
+        audioSource = controller.GetComponent<AudioSource>();
         //stop the AI from moving
         controller.GetComponent<AIPath>().maxSpeed = speed;
         animator = controller.GetComponent<Animator>();
         animator.SetBool("Stunned", true);
+        audioSource.PlayOneShot(stunSound);
         StartCoroutine(StunTimer(controller));
 
     }
