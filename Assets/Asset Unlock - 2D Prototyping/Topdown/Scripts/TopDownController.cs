@@ -5,12 +5,8 @@ using UnityEngine.UI;
 
 public class TopDownController : MonoBehaviour
 {
-    [Range(0,50)]
+    [Range(0,100)]
     public int segments = 10;
-    [Range(0,5)]
-    public float xradius = 1;
-    [Range(0,5)]
-    public float yradius = 1;
     LineRenderer line;
     
     public Slider stunSlider;
@@ -21,6 +17,8 @@ public class TopDownController : MonoBehaviour
     public bool hasFloppyDisk = false;
     public Transform respawnPosition;
     public AudioSource jumpScareAudio;
+
+    public ParticleSystem stunParticles;
     
     // ========= MOVEMENT =================
     public float speed = 4;
@@ -36,6 +34,8 @@ public class TopDownController : MonoBehaviour
 
     void Start()
     {
+        //turn stun particles off
+        stunParticles.Stop();
         line = GetComponent<LineRenderer>();
         line.SetVertexCount (segments + 1);
         line.useWorldSpace = false;
@@ -57,8 +57,8 @@ public class TopDownController : MonoBehaviour
 
         for (int i = 0; i < (segments + 1); i++)
         {
-            x = Mathf.Sin (Mathf.Deg2Rad * angle) * xradius;
-            y = Mathf.Cos (Mathf.Deg2Rad * angle) * yradius;
+            x = Mathf.Sin (Mathf.Deg2Rad * angle) * stunRadius;
+            y = Mathf.Cos (Mathf.Deg2Rad * angle) * stunRadius;
 
             line.SetPosition (i,new Vector3(x,y,0) );
 
@@ -67,6 +67,7 @@ public class TopDownController : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         line.enabled = false;
+        stunParticles.Stop();
     }
 
 
@@ -111,6 +112,7 @@ public class TopDownController : MonoBehaviour
 
     private void Stun()
     {
+        stunParticles.Play();
         stunSlider.value = 0;
         StartCoroutine(StunTimer());
         line.enabled = true;
@@ -135,6 +137,7 @@ public class TopDownController : MonoBehaviour
     {
         yield return new WaitForSeconds(StunCooldown);
         canStun = true;
+        
     }
 
     private void FixedUpdate()
