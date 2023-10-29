@@ -132,7 +132,7 @@ MonoBehaviour:
   currentState: {fileID: 0}
   playerTransform: {fileID: 0}
   floppyUI: {fileID: 0}
-  playerDetectionDistance: 2.5
+  playerDetectionDistance: 3.5
 --- !u!114 &846106214877675711
 MonoBehaviour:
   m_ObjectHideFlags: 0
