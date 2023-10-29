@@ -54,6 +54,7 @@ public class TalkState : AIState
                 //switch back to patrol state
                 _isTalking = false;
                 _playerController.canMove = true; 
+                _playerController.canStun = true;
                 //cast controller to NPCAIController
                 NPCAIController npcController = (NPCAIController) controller;
                 npcController.aiState = NPCAIController.AIState.Patrol;

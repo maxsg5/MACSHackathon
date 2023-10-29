@@ -13,7 +13,8 @@ public class EnemyAIController : AIController
     private enum AIState
     {
         Wander,
-        Chase
+        Chase,
+        Stunned
     };
     //private properties
     [SerializeField]
@@ -21,6 +22,7 @@ public class EnemyAIController : AIController
     //states
     private WanderState wanderState;
     private ChaseState chaseState;
+    private StunnedState stunState;
     private AIState aiState;
     private AIState previousState;
     // Start is called before the first frame update
@@ -31,6 +33,7 @@ public class EnemyAIController : AIController
         StartCoroutine(Initialize());
         wanderState = GetComponent<WanderState>(); 
         chaseState = GetComponent<ChaseState>();
+        stunState = GetComponent<StunnedState>();
         aiState = AIState.Wander;
         SwitchState(wanderState);
         
@@ -54,6 +57,12 @@ public class EnemyAIController : AIController
     private new void Update()
     {
         base.Update();
+        
+        //check if stunned
+        if (aiState == AIState.Stunned)
+        {
+            return;
+        }
         //CHECK FOR STATE CHANGES
         //if player is in range, switch to chase state
         if(Vector3.Distance(transform.position, playerTransform.position) < playerDetectionDistance)
@@ -77,12 +86,23 @@ public class EnemyAIController : AIController
                 case AIState.Chase:
                     SwitchState(chaseState);
                     break;
+                case AIState.Stunned:
+                    SwitchState(stunState);
+                    break;
             }
-
             previousState = aiState;  // Update previousState to current state
         }
-        
-        
+    }
+
+    public void IsStunned()
+    {
+        aiState = AIState.Stunned;
+        SwitchState(stunState);
+    }
+
+    public void GoToWander()
+    {
+        SwitchState(wanderState);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
