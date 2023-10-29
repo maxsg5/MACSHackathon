@@ -17,6 +17,8 @@ public class TopDownController : MonoBehaviour
     public bool hasFloppyDisk = false;
     public Transform respawnPosition;
     public AudioSource jumpScareAudio;
+
+    public ParticleSystem stunParticles;
     
     // ========= MOVEMENT =================
     public float speed = 4;
@@ -32,6 +34,8 @@ public class TopDownController : MonoBehaviour
 
     void Start()
     {
+        //turn stun particles off
+        stunParticles.Stop();
         line = GetComponent<LineRenderer>();
         line.SetVertexCount (segments + 1);
         line.useWorldSpace = false;
@@ -63,6 +67,7 @@ public class TopDownController : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         line.enabled = false;
+        stunParticles.Stop();
     }
 
 
@@ -107,6 +112,7 @@ public class TopDownController : MonoBehaviour
 
     private void Stun()
     {
+        stunParticles.Play();
         stunSlider.value = 0;
         StartCoroutine(StunTimer());
         line.enabled = true;
@@ -131,6 +137,7 @@ public class TopDownController : MonoBehaviour
     {
         yield return new WaitForSeconds(StunCooldown);
         canStun = true;
+        
     }
 
     private void FixedUpdate()
