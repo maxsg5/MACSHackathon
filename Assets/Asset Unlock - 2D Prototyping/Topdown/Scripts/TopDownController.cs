@@ -5,12 +5,8 @@ using UnityEngine.UI;
 
 public class TopDownController : MonoBehaviour
 {
-    [Range(0,50)]
+    [Range(0,100)]
     public int segments = 10;
-    [Range(0,5)]
-    public float xradius = 1;
-    [Range(0,5)]
-    public float yradius = 1;
     LineRenderer line;
     
     public Slider stunSlider;
@@ -57,8 +53,8 @@ public class TopDownController : MonoBehaviour
 
         for (int i = 0; i < (segments + 1); i++)
         {
-            x = Mathf.Sin (Mathf.Deg2Rad * angle) * xradius;
-            y = Mathf.Cos (Mathf.Deg2Rad * angle) * yradius;
+            x = Mathf.Sin (Mathf.Deg2Rad * angle) * stunRadius;
+            y = Mathf.Cos (Mathf.Deg2Rad * angle) * stunRadius;
 
             line.SetPosition (i,new Vector3(x,y,0) );
 

@@ -4121,6 +4121,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 8560748829678191381, guid: 90350a423bc18bf4288caefda9a6638f,
         type: 3}
+      propertyPath: canStun
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560748829678191381, guid: 90350a423bc18bf4288caefda9a6638f,
+        type: 3}
       propertyPath: xradius
       value: 2
       objectReference: {fileID: 0}
@@ -5787,7 +5792,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 16ef4dd4a17bfb4429e2aa5cbc545f28, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
