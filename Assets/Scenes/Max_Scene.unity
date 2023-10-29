@@ -2863,7 +2863,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e9f5f36ca4044cc478da726e57ea3688, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ec36ce0d3283c19449ef8d71dd873e11, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: -2.96
@@ -2995,6 +2995,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1779675510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1398113032 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2549888852430947627, guid: 90350a423bc18bf4288caefda9a6638f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1726017965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1428655216
 GameObject:
   m_ObjectHideFlags: 0
@@ -3691,6 +3697,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2549888852430947627, guid: 90350a423bc18bf4288caefda9a6638f,
         type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ec36ce0d3283c19449ef8d71dd873e11, type: 3}
+    - target: {fileID: 2549888852430947627, guid: 90350a423bc18bf4288caefda9a6638f,
+        type: 3}
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
@@ -3788,7 +3799,7 @@ PrefabInstance:
         type: 3}
       propertyPath: jumpScareAudio
       value: 
-      objectReference: {fileID: 1296234186}
+      objectReference: {fileID: 1398113032}
     - target: {fileID: 8560748829678191381, guid: 90350a423bc18bf4288caefda9a6638f,
         type: 3}
       propertyPath: respawnPosition
