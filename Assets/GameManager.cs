@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,11 +37,11 @@ public class GameManager : MonoBehaviour
     
     public void SetMazeSeed()
     {
-        int seed = 1;
+        int seed = Random.Range(1, 1000000);
         //check if seedInput.text has anything
         if (seedInput.text != "")
         {
-            seed = int.Parse(seedInput.text);
+            int.TryParse(seedInput.text, out seed);
         }
         //make sure a valid int is passed
         if (seed < 1)
