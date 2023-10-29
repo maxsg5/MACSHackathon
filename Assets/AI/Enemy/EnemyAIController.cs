@@ -61,6 +61,7 @@ public class EnemyAIController : AIController
         //check if stunned
         if (aiState == AIState.Stunned)
         {
+            Debug.Log("IS STUNNED");
             return;
         }
         //CHECK FOR STATE CHANGES
@@ -102,6 +103,7 @@ public class EnemyAIController : AIController
 
     public void GoToWander()
     {
+        aiState = AIState.Wander;
         SwitchState(wanderState);
     }
 
