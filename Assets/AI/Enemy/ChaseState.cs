@@ -35,6 +35,8 @@ public class ChaseState : AIState
         if (distanceToPlayer < closeEnoughDistance)
         {
             //TODO: either attack player, play jumpscare, or something else
+            LevelManager.Instance.ShowScare();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().Respawn();
         }
     }
 

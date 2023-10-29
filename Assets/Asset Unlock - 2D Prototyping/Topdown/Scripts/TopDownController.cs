@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class TopDownController : MonoBehaviour
 {
     public bool hasFloppyDisk = false;
+    public Transform respawnPosition;
+    public AudioSource jumpScareAudio;
     
     // ========= MOVEMENT =================
     public float speed = 4;
@@ -62,5 +65,20 @@ public class TopDownController : MonoBehaviour
         position = position + movement * speed * Time.deltaTime;
         
         rigidbody2d.MovePosition(position);
+    }
+
+    public void Respawn() 
+    {
+        jumpScareAudio.Play();
+        canMove = false;
+        transform.position = respawnPosition.position;
+        StartCoroutine(Wait());
+    }
+
+    private IEnumerator Wait() 
+    {
+        yield return new WaitForSeconds(0.5f);
+        LevelManager.Instance.HideScare();
+        canMove = true;
     }
 }

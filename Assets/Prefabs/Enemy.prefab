@@ -129,6 +129,7 @@ MonoBehaviour:
   Path: {fileID: 0}
   currentState: {fileID: 0}
   playerTransform: {fileID: 0}
+  floppyUI: {fileID: 0}
   playerDetectionDistance: 2.5
 --- !u!114 &846106214877675711
 MonoBehaviour:
@@ -275,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bff98368164d56a671578aa9402249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeEnoughDistance: 0.5
+  closeEnoughDistance: 0.1
   speed: 5
 --- !u!114 &7721255932204123171
 MonoBehaviour:

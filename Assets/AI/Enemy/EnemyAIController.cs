@@ -95,6 +95,8 @@ public class EnemyAIController : AIController
             playerTransform.gameObject.GetComponent<TopDownController>().hasFloppyDisk = false;
 
             //TODO: add logic here for showing jumpscare and translating player to start of maze.
+            LevelManager.Instance.ShowScare();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().Respawn();
         }
     }
 }
