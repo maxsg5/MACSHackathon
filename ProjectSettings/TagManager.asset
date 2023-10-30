@@ -8,6 +8,7 @@ TagManager:
   - Floppy
   - FloppyUI
   - HUD
+  - dropdown
   layers:
   - Default
   - TransparentFX

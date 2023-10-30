@@ -12,10 +12,14 @@ public class Dialogue : MonoBehaviour
     public bool isFinalDialogue = false;
     public GameObject WinScreen;
     public AudioMixer audioSource;
+    public AudioClip audioClip;
+    private AudioSource sound;
+    bool noAudio = false;
     
     // Start is called before the first frame update
     void Start()
     {
+        sound = GetComponent<AudioSource>();
         textDisplay.text = string.Empty;
         StartDialogue();
     }
@@ -27,10 +31,12 @@ public class Dialogue : MonoBehaviour
         {
             if (textDisplay.text == sentences[index])
             {
+                PlaySound();
                 NextLine();
             }
             else
             {
+                PlaySound();
                 StopAllCoroutines();
                 textDisplay.text = sentences[index];
             }
@@ -41,6 +47,15 @@ public class Dialogue : MonoBehaviour
     void StartDialogue()
     {
         StartCoroutine(Type());
+    }
+
+    void PlaySound()
+    {
+        if (noAudio)
+        {
+            return;
+        }
+        sound.PlayOneShot(audioClip);
     }
     
     IEnumerator Type()
@@ -65,9 +80,11 @@ public class Dialogue : MonoBehaviour
             textDisplay.text = string.Empty;
             if (isFinalDialogue)
             {
+                noAudio = true;
                 audioSource.StopAllAudio();
                 //show win screen
                 WinScreen.SetActive(true);
+                LevelManager.Instance.isGameOver = true;
             }
             else
             {

@@ -6,6 +6,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public GameObject jumpScareScreen;
+    public bool isGameOver = false;
     public static LevelManager Instance;
     private void Awake()
     {

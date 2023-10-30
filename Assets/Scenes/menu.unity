@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 238596953}
   m_Layer: 5
   m_Name: Dropdown
-  m_TagString: Untagged
+  m_TagString: dropdown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1769,7 +1769,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6e7e4780252824da27a0298003e9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedInput: {fileID: 1584511109}
 --- !u!4 &1114711566
 Transform:
   m_ObjectHideFlags: 0
