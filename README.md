@@ -22,11 +22,6 @@ Computer Science Club Hackathon 2023.
 - Saphia Mohamed (3rd year)
 - Jeffrey Moniz (1st year)
 
-## Description
-<div id="header" align="center">
-  <img src ="https://media.giphy.com/media/HbvaeI4Lg0FOw/giphy.gif" width = "300"/> 
-</div>
-
 
 
 
@@ -35,12 +30,8 @@ Computer Science Club Hackathon 2023.
   <img src ="https://media.giphy.com/media/uElxuHGtIuK0o/giphy.gif" width = "300"/> 
 </div>
 
+To install the game visit [itch.io](https://maxsg5.itch.io/macs-hackathon-2023) and download the zip file for your platform (MacOS or Windows). Extract the zip file and run the executable file.
 
-
-## Usage
-<div id="header" align = "center">
-  <img src ="https://media.giphy.com/media/t5wDMqMYp5NXa/giphy.gif" width = "300"/> 
-</div>
 
 ## Credit
 
@@ -48,13 +39,10 @@ Computer Science Club Hackathon 2023.
   <img src ="https://media.giphy.com/media/ff748OtDfBwuk/giphy.gif" width = "300"/> 
 </div>
 
-- Asset Name
-  - Source:
-  - License:
+- Assets obtained from [itch.io](https://itch.io/game-assets/free), [opengameart](https://opengameart.org/) and [Unity Asset Store](https://assetstore.unity.com/)
+- Music & sound effects obtained from [zapsplat](https://www.zapsplat.com/sound-effect-category/royalty-free-music/) edited with [Audacity](https://www.audacityteam.org/)
+- Engine used [Unity](https://unity.com/)
 
-- Asset Name
-  - Source:
-  - License:
 
 
 
